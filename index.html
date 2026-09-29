@@ -433,8 +433,9 @@ function renderSettings(){
   </div>
   <div class="panel"><div class="panel-h"><h2>Backup</h2></div>
     <p class="help" style="margin-bottom:10px">Tasks are stored on this phone and work without internet. Save a backup file now and then so nothing is lost if the app or browser data is cleared. A backup also moves your tasks to another phone.</p>
-    <div class="steps"><button class="btn small primary" type="button" id="bk-file">Save backup file</button><label class="btn small" for="bk-open" style="cursor:pointer">Open backup file</label><input type="file" id="bk-open" accept=".json,application/json,text/plain" hidden><button class="btn small" type="button" id="bk-copy">Copy as text</button><button class="btn small" type="button" id="bk-show">Paste backup text</button></div>
+    <div class="steps"><button class="btn small primary" type="button" id="bk-file">Save backup file</button><label class="btn small" for="bk-open" style="cursor:pointer">Open backup or shared task</label><input type="file" id="bk-open" accept=".json,application/json,text/plain" hidden><button class="btn small" type="button" id="bk-copy">Copy as text</button><button class="btn small" type="button" id="bk-show">Paste backup text</button></div>
     <p class="help mono" id="st-use" style="font-size:12px;margin-top:10px"></p>
+    <p class="help mono" style="font-size:12px">App version 5 · photos, sharing &amp; PDF</p>
     <div id="bk-area" hidden style="margin-top:10px" class="field"><label for="bk-text">Paste backup text</label><textarea class="in" id="bk-text"></textarea><div class="steps"><button class="btn small primary" type="button" id="bk-go">Restore (adds and replaces matching tasks)</button></div></div>
   </div>`;
 }
@@ -479,6 +480,10 @@ function drawSheet(){
         <div class="add-cmt"><label class="btn photo-btn" for="s-photo" aria-label="Add photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></label><input type="file" id="s-photo" accept="image/*" multiple hidden><textarea class="in" id="s-cmt" placeholder="Add an update"></textarea><button class="btn primary" type="button" id="s-post">Post</button></div>
         <div class="comments">${cm.length?cm.map(c=>`<div class="cmt ${c.kind==='log'?'log':''}"><div class="cmt-h"><span class="mono">${fmtStamp(c.at)}</span>${c.kind==='log'?'':`<button class="cmt-x" type="button" data-cdel="${c.id}">Delete</button>`}</div>${c.text?`<div class="cmt-t">${esc(c.text)}</div>`:''}${(c.images||[]).length?`<div class="thumbs">${c.images.map(id=>`<button class="thumb" type="button" data-view="${id}" aria-label="View photo"><img data-img="${id}" alt="Photo" style="width:100%;height:100%;object-fit:cover;border-radius:7px;display:block"></button>`).join('')}</div>`:''}</div>`).join(''):'<p class="help">No comments yet. Updates to status, owner, progress and due date are logged here automatically.</p>'}</div></div>
         ${t.due&&!isDone(t)?`<div class="field"><button class="btn" type="button" id="cal-one">Add daily reminders to Calendar</button><p class="help" style="font-size:12.5px">Alerts every day at ${esc((cfg.remind||{}).time||'09:00')} from ${rdays()} days before ${fmtDate(t.due)}.</p></div>`:''}
+        <div class="field"><span class="label">Share this task</span>
+          <div class="steps"><button class="btn small" type="button" id="sh-task">Send task file</button><button class="btn small" type="button" id="sh-pdf">Create PDF report</button></div>
+          ${sheet.shareReady?`<div class="confirm" style="background:var(--accent-soft)"><span style="flex:1 1 100%;overflow-wrap:anywhere">${esc(sheet.shareReady.name)} is ready.</span><button class="btn small primary" type="button" id="sh-go">Share</button><button class="btn small" type="button" id="sh-save">Save to phone</button></div>`:''}
+          <p class="help" style="font-size:12.5px">A task file opens in anyone's Task Ledger via Lists &amp; setup → Open backup or shared task. The PDF lists every update in date order, with photos.</p></div>
         <div class="field">${sheet.confirmDel?`<div class="confirm">Delete ${tidOf(t)} and its comments? This can’t be undone. <button class="btn small danger fill" type="button" id="s-delyes">Delete task</button><button class="btn small" type="button" id="s-delno">Keep</button></div>`:`<button class="btn danger" type="button" id="s-del">Delete task</button>`}</div>
         <p class="help mono" style="font-size:11.5px">Created ${fmtStamp(t.createdAt)} · updated ${fmtStamp(t.updatedAt)}</p>`}
     </div></div></div>`;
@@ -493,6 +498,7 @@ function applyField(field,val){
   t[field]=val;
   if(field==='status'){const s=find('statuses',val);if(s&&s.done&&(+t.progress||0)<100){t.progress=100}}
   if(field==='progress'&&val===100){const ds=cfg.statuses.find(s=>s.done);if(ds&&!isDone(t)){t.status=ds.id}}
+  sheet.shareReady=null;
   if(!sheet.isNew){
     const L={status:['Status',()=>nameOf('statuses',old,'none')+' → '+nameOf('statuses',val,'none')],owner:['Responsible',()=>nameOf('people',old,'unassigned')+' → '+nameOf('people',val,'unassigned')],
       branch:['Branch',()=>nameOf('branches',old,'none')+' → '+nameOf('branches',val,'none')],progress:['Progress',()=>(+old||0)+'% → '+val+'%'],due:['Due date',()=>(old?fmtDate(old):'none')+' → '+(val?fmtDate(val):'none')],priority:['Priority',()=>nameOf('priorities',old,'none')+' → '+nameOf('priorities',val,'none')]}[field];
@@ -518,10 +524,98 @@ function hydrateImgs(root){(root||document).querySelectorAll('img[data-img]').fo
 function openViewer(src){const v=document.createElement('div');v.className='viewer';v.innerHTML='<img alt="Photo"><button class="btn" type="button">Close</button>';v.querySelector('img').src=src;v.addEventListener('click',()=>v.remove());document.body.appendChild(v)}
 async function backupText(pretty){const images={};const ids=[...tasks.values()].flatMap(taskImgIds);for(const id of ids){try{const v=await imgGet(id);if(v)images[id]=v}catch(e){}}
   return JSON.stringify({cfg,tasks:[...tasks.values()],images},null,pretty?1:0)}
-async function restore(txt){let d;try{d=JSON.parse(txt);if(!d||!Array.isArray(d.tasks))throw 0}catch(err){toast('That is not a valid Task Ledger backup.');return}
+async function restore(txt){let d;try{d=JSON.parse(txt);if(!d||(!Array.isArray(d.tasks)&&!(d.kind==='task'&&d.task&&d.task.id)))throw 0}catch(err){toast('That is not a Task Ledger backup or shared task.');return}
+  if(d.kind==='task'){for(const [id,v] of Object.entries(d.images||{})){try{await imgPut(id,v)}catch(e){}}const t=importTask(d);lsSave();tab='tasks';render();openTask(t.id);toast(tidOf(t)+' imported');return}
   if(d.cfg){cfg=Object.assign(clone(DEFAULTS),d.cfg)}d.tasks.forEach(t=>{if(t&&t.id)tasks.set(t.id,t)});lsSave();
   let n=0;if(d.images){for(const [id,v] of Object.entries(d.images)){try{await imgPut(id,v);n++}catch(e){}}}
   render();toast('Restored '+d.tasks.length+' tasks'+(n?' and '+n+' photos':'')+'.')}
+
+/* ---------- share a task ---------- */
+const LIST_FIELDS=[['branches','branch'],['people','owner'],['statuses','status'],['priorities','priority']];
+function slug(s){return String(s||'task').replace(/[^A-Za-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40)||'task'}
+async function taskShareFile(t){const lists={};LIST_FIELDS.forEach(([k,f])=>{const x=find(k,t[f]);lists[k]=x?[x]:[]});
+  const images={};for(const id of taskImgIds(t)){try{const v=await imgGet(id);if(v)images[id]=v}catch(e){}}
+  const txt=JSON.stringify({kind:'task',version:1,from:cfg.appName,sharedAt:Date.now(),task:t,lists,images});
+  return new File([txt],tidOf(t)+'-'+slug(t.title)+'.json',{type:'application/json'})}
+function importTask(d){const map={};
+  LIST_FIELDS.forEach(([k])=>{(d.lists&&d.lists[k]||[]).forEach(x=>{if(!x||!x.id)return;
+    const same=cfg[k].find(y=>y.id===x.id)||cfg[k].find(y=>y.name.trim().toLowerCase()===String(x.name).trim().toLowerCase());
+    if(same)map[x.id]=same.id;else{cfg[k].push(clone(x));map[x.id]=x.id}})});
+  const t=clone(d.task);LIST_FIELDS.forEach(([k,f])=>{if(t[f]&&map[t[f]])t[f]=map[t[f]]});
+  const ex=tasks.get(t.id);t.num=ex?ex.num:Math.max(0,...[...tasks.values()].map(x=>x.num||0))+1;
+  t.comments=t.comments||[];t.comments.push({id:uid('c'),text:(ex?'Updated':'Received')+' from a shared file'+(d.from?' ('+d.from+')':''),at:Date.now(),kind:'log'});
+  tasks.set(t.id,t);return t}
+function saveBlob(file){const u=URL.createObjectURL(file);const a=document.createElement('a');a.href=u;a.download=file.name;document.body.appendChild(a);a.click();setTimeout(()=>{a.remove();URL.revokeObjectURL(u)},4000)}
+function shareOrSave(file){try{if(navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:file.name}).catch(e=>{if(!e||e.name!=='AbortError')saveBlob(file)});return}}catch(e){}saveBlob(file)}
+
+/* ---------- minimal PDF writer (Helvetica, JPEG photos) ---------- */
+const WINANSI={'€':128,'‚':130,'„':132,'…':133,'•':149,'–':150,'—':151,'‘':145,'’':146,'“':147,'”':148,'™':153};
+function pdfStr(s){let o='';for(const ch of String(s)){let c=ch.codePointAt(0);if(WINANSI[ch])c=WINANSI[ch];else if(ch==='→'){o+='->';continue}else if(c>255||(c>=128&&c<160))c=63;
+  const x=String.fromCharCode(c);o+=(x==='\\'||x==='('||x===')')?'\\'+x:x}return o}
+let measureCtx=null;
+function textW(s,size,font){if(font==='F3')return String(s).length*size*0.6;if(!measureCtx)measureCtx=document.createElement('canvas').getContext('2d');
+  measureCtx.font=(font==='F2'?'bold ':'')+'100px Helvetica, Arial, sans-serif';return measureCtx.measureText(String(s)).width*size/100*1.02}
+function wrapText(s,w,size,font){const out=[];String(s||'').split(/\r?\n/).forEach(p=>{const words=p.split(/\s+/).filter(Boolean);if(!words.length){out.push('');return}
+  let line='';words.forEach(wd=>{let cand=line?line+' '+wd:wd;if(textW(cand,size,font)<=w){line=cand;return}
+    if(line)out.push(line);while(textW(wd,size,font)>w&&wd.length>1){let k=wd.length;while(k>1&&textW(wd.slice(0,k),size,font)>w)k--;out.push(wd.slice(0,k));wd=wd.slice(k)}line=wd});if(line)out.push(line)});return out}
+function imgSize(data){return new Promise(res=>{const im=new Image();im.onload=()=>res({w:im.naturalWidth,h:im.naturalHeight});im.onerror=()=>res(null);im.src=data})}
+async function buildTaskPDF(t){
+  const PW=595.28,PH=841.89,M=48,CW=PW-2*M;const pages=[];let ops,y;const imgs=[];
+  const INK=[18,24,33],MUTE=[112,120,132],LINE=[216,222,229],ACC=[36,71,201],RED=[194,54,43],SOFT=[245,247,249];
+  const col=c=>c.map(v=>(v/255).toFixed(3)).join(' ');
+  const newPage=()=>{ops=[];pages.push(ops);y=PH-M};const ensure=h=>{if(y-h<M+24){newPage();return true}return false};
+  const txt=(x,yy,s,size,font,c)=>ops.push('BT /'+font+' '+size+' Tf '+col(c)+' rg '+x.toFixed(2)+' '+yy.toFixed(2)+' Td ('+pdfStr(s)+') Tj ET');
+  const rect=(x,yy,w,h,c)=>ops.push(col(c)+' rg '+x.toFixed(2)+' '+yy.toFixed(2)+' '+w.toFixed(2)+' '+h.toFixed(2)+' re f');
+  const hline=(yy,c)=>ops.push(col(c)+' RG 0.6 w '+M+' '+yy.toFixed(2)+' m '+(PW-M)+' '+yy.toFixed(2)+' l S');
+  const para=(s,x,w,size,font,c,lh)=>{wrapText(s,w,size,font).forEach(l=>{ensure(lh);y-=lh;txt(x,y+lh*0.28,l,size,font,c)})};
+  newPage();
+  const b=find('branches',t.branch),p=find('people',t.owner),st=find('statuses',t.status),pr=find('priorities',t.priority);
+  const dn=isDone(t),prog=dn?100:(+t.progress||0),dd=dayDiff(t.due);
+  txt(M,y-8,('Task report · '+(cfg.appName||'Task Ledger')).toUpperCase(),8.5,'F2',MUTE);y-=22;
+  txt(M,y-14,tidOf(t),11,'F3',ACC);y-=16;
+  para(t.title||'Untitled task',M,CW,19,'F2',INK,24);y-=8;hline(y,LINE);y-=6;
+  const cell=(x,label,val,c)=>{txt(x,y-10,label.toUpperCase(),7.5,'F2',MUTE);txt(x,y-24,val||'—',10.5,'F1',c||INK)};
+  const rows=[['Branch',b?b.name:'—','Responsible',p?p.name:'Unassigned'],['Status',st?st.name:'—','Priority',pr?pr.name:'—'],
+    ['Due date',t.due?fmtDate(t.due)+(!dn&&dd<0?'  ('+(-dd)+' days overdue)':''):'Not set','Progress',prog+'%'],
+    ['Created',fmtStamp(t.createdAt),'Last updated',fmtStamp(t.updatedAt)]];
+  rows.forEach(r=>{ensure(34);cell(M,r[0],r[1],r[0]==='Due date'&&!dn&&dd<0?RED:INK);cell(M+CW/2,r[2],r[3]);
+    if(r[2]==='Progress'){rect(M+CW/2+40,y-26,120,6,SOFT);rect(M+CW/2+40,y-26,120*prog/100,6,ACC)}y-=34});
+  if(t.notes&&t.notes.trim()){y-=6;ensure(30);txt(M,y-10,'DETAILS',7.5,'F2',MUTE);y-=14;para(t.notes,M,CW,10.5,'F1',INK,15)}
+  y-=14;ensure(40);hline(y,LINE);y-=18;txt(M,y,'Timeline',14,'F2',INK);txt(M+70,y,'oldest first',9,'F1',MUTE);y-=10;
+  const list=(t.comments||[]).slice().sort((a,b)=>a.at-b.at);
+  if(!list.length){y-=16;txt(M,y,'No updates recorded yet.',10,'F1',MUTE)}
+  const TX=M+104,TW=CW-104;
+  for(const c of list){const isLog=c.kind==='log';ensure(34);y-=8;
+    const top=y;txt(M,y-11,fmtStamp(c.at)+(new Date(c.at).getFullYear()!==new Date().getFullYear()?' '+new Date(c.at).getFullYear():''),8.5,'F3',MUTE);
+    txt(M,y-23,isLog?'Change':'Update',7.5,'F2',isLog?MUTE:ACC);y-=2;
+    if(c.text)para(c.text,TX,TW,isLog?9.5:10.5,isLog?'F1':'F1',isLog?MUTE:INK,isLog?13:15);
+    for(const id of (c.images||[])){let data=null;try{data=await imgGet(id)}catch(e){}if(!data||!/^data:image\/jpeg/.test(data))continue;
+      const sz=await imgSize(data);if(!sz)continue;let w=Math.min(TW,240),h=w*sz.h/sz.w;if(h>220){h=220;w=h*sz.w/sz.h}
+      y-=6;ensure(h+4);y-=h;const bin=atob(data.split(',')[1]);const n=imgs.length;imgs.push({bin,w:sz.w,h:sz.h});
+      ops.push('q '+w.toFixed(2)+' 0 0 '+h.toFixed(2)+' '+TX.toFixed(2)+' '+y.toFixed(2)+' cm /Im'+n+' Do Q')}
+    y=Math.min(y,top-30);y-=8;hline(y,[236,239,243])}
+  const nd=new Date();const stamp='Generated '+String(nd.getDate()).padStart(2,'0')+' '+MON[nd.getMonth()]+' '+nd.getFullYear()+', '+String(nd.getHours()).padStart(2,'0')+':'+String(nd.getMinutes()).padStart(2,'0');
+  pages.forEach((pg,i)=>{const o=ops;ops=pg;txt(M,26,stamp,8,'F1',MUTE);const pn='Page '+(i+1)+' of '+pages.length;txt(PW-M-textW(pn,8,'F1'),26,pn,8,'F1',MUTE);ops=o});
+  // assemble
+  const chunks=[];let off=0;const offs=[];const push=s=>{chunks.push(s);off+=s.length};
+  const nImg=imgs.length,firstImg=6,firstPage=firstImg+nImg;const total=firstPage+pages.length*2-1;
+  push('%PDF-1.4\n%âãÏÓ\n');
+  const obj=(n,body)=>{offs[n]=off;push(n+' 0 obj\n'+body+'\nendobj\n')};
+  obj(1,'<< /Type /Catalog /Pages 2 0 R >>');
+  obj(2,'<< /Type /Pages /Count '+pages.length+' /Kids ['+pages.map((_,i)=>(firstPage+i*2)+' 0 R').join(' ')+'] >>');
+  obj(3,'<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>');
+  obj(4,'<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>');
+  obj(5,'<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>');
+  imgs.forEach((im,i)=>obj(firstImg+i,'<< /Type /XObject /Subtype /Image /Width '+im.w+' /Height '+im.h+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+im.bin.length+' >>\nstream\n'+im.bin+'\nendstream'));
+  const res='<< /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >>'+(nImg?' /XObject << '+imgs.map((_,i)=>'/Im'+i+' '+(firstImg+i)+' 0 R').join(' ')+' >>':'')+' >>';
+  pages.forEach((pg,i)=>{const pn=firstPage+i*2,cn=pn+1;const content=pg.join('\n');
+    obj(pn,'<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+PW+' '+PH+'] /Resources '+res+' /Contents '+cn+' 0 R >>');
+    obj(cn,'<< /Length '+content.length+' >>\nstream\n'+content+'\nendstream')});
+  const xref=off;let x='xref\n0 '+(total+1)+'\n0000000000 65535 f \n';for(let n=1;n<=total;n++)x+=String(offs[n]).padStart(10,'0')+' 00000 n \n';
+  push(x+'trailer\n<< /Size '+(total+1)+' /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF');
+  const str=chunks.join('');const bytes=new Uint8Array(str.length);for(let i=0;i<str.length;i++)bytes[i]=str.charCodeAt(i)&255;
+  return new File([bytes],tidOf(t)+'-'+slug(t.title)+'-report.pdf',{type:'application/pdf'})}
+
 /* ---------- events ---------- */
 document.addEventListener('click',e=>{
   const b=e.target.closest('button');if(!b)return;
@@ -553,6 +647,11 @@ document.addEventListener('click',e=>{
   // sheet
   if(!sheet)return;
   if(b.id==='cal-one'){addToCalendar([sheet.draft]);return}
+  if(b.id==='sh-task'||b.id==='sh-pdf'){const label=b.textContent;b.disabled=true;b.textContent='Preparing…';const t=clone(sheet.draft);
+    (b.id==='sh-task'?taskShareFile(t):buildTaskPDF(t)).then(f=>{if(!sheet)return;sheet.shareReady=f;const sc=$('.sheet-b').scrollTop;drawSheet();$('.sheet-b').scrollTop=sc},
+      e=>{b.disabled=false;b.textContent=label;toast('Could not create the file. Try again.')});return}
+  if(b.id==='sh-go'&&sheet.shareReady){shareOrSave(sheet.shareReady);return}
+  if(b.id==='sh-save'&&sheet.shareReady){saveBlob(sheet.shareReady);return}
   if(b.id==='s-close'){closeSheet();return}
   if(b.id==='s-create'){const t=sheet.draft;t.title=$('#s-title').value.trim();t.notes=$('#s-notes').value;
     if(!t.title){$('#s-title').focus();toast('Give the task a name first.');return}
@@ -561,7 +660,7 @@ document.addEventListener('click',e=>{
   if(b.id==='s-post'){const ta=$('#s-cmt');const txt=ta.value.trim();const pend=sheet.pending||[];if(!txt&&!pend.length){ta.focus();return}
     const t=sheet.draft;b.disabled=true;
     Promise.all(pend.map(p=>imgPut(p.id,p.data))).then(()=>{t.comments=t.comments||[];t.comments.push({id:uid('c'),text:txt,at:Date.now(),kind:'note',images:pend.map(p=>p.id)});
-      sheet.pending=[];ta.value='';saveTask(clone(t)).then(flashSaved);drawSheet()},()=>{b.disabled=false;toast('Phone storage is full. Delete some photos or tasks and try again.')});return}
+      sheet.pending=[];sheet.shareReady=null;ta.value='';saveTask(clone(t)).then(flashSaved);drawSheet()},()=>{b.disabled=false;toast('Phone storage is full. Delete some photos or tasks and try again.')});return}
   if(b.dataset.unpend){sheet.pending=(sheet.pending||[]).filter(p=>p.id!==b.dataset.unpend);drawSheet();return}
   if(b.dataset.view){const im=b.querySelector('img');if(im&&im.src)openViewer(im.src);return}
   if(b.dataset.cdel){const t=sheet.draft;const gone=t.comments.find(c=>c.id===b.dataset.cdel);imgDel(gone&&gone.images);t.comments=t.comments.filter(c=>c.id!==b.dataset.cdel);saveTask(clone(t));drawSheet();return}
