@@ -125,7 +125,24 @@ h2{font-family:var(--f-display);font-stretch:80%;font-weight:750;font-size:19px;
 
 /* tab bar */
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
-.tabs-in{max-width:720px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr)}
+.tabs-in{max-width:720px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.dsum{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (min-width:560px){.dsum{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.dsum .kpi b{font-size:30px}
+.kpi.good b{color:var(--ok)}
+.kpi.warn b{color:var(--warn)}
+.dgroup-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+.dgroup-h h2{display:flex;align-items:center;gap:8px;min-width:0}
+.dgroup-h h2 span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.drow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 10px;align-items:center;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line);padding:10px 0}
+.drow:first-child{border-top:0}
+.drow-t{display:flex;gap:8px;align-items:baseline;min-width:0;font-weight:600}
+.drow-t em{font-style:normal;overflow-wrap:anywhere}
+.drow-m{grid-column:1 / 2;font-size:12.5px;color:var(--ink-3)}
+.res{font-size:11.5px;font-weight:650;padding:2px 8px;border-radius:999px;white-space:nowrap;grid-row:1 / span 2;grid-column:2}
+.res.ok{color:var(--ok);background:var(--surface-2);background:color-mix(in srgb,var(--ok) 12%,transparent)}
+.res.late{color:var(--danger);background:var(--danger-soft)}
+.res.na{color:var(--ink-3);background:var(--surface-2)}
 .tab{background:none;border:0;padding:9px 0 8px;display:grid;justify-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--ink-3);letter-spacing:.02em}
 .tab svg{width:22px;height:22px}
 .tab[aria-current="page"]{color:var(--accent)}
@@ -193,6 +210,7 @@ input[type=range]{flex:1;accent-color:var(--accent);height:28px}
 <main>
   <section class="view" id="v-dash"></section>
   <section class="view" id="v-tasks" hidden></section>
+  <section class="view" id="v-done" hidden></section>
   <section class="view" id="v-settings" hidden></section>
 </main>
 
@@ -201,7 +219,8 @@ input[type=range]{flex:1;accent-color:var(--accent);height:28px}
 <nav class="tabs"><div class="tabs-in">
   <button class="tab" data-tab="dash" aria-current="page" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="7.5" height="9" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="5" rx="1.5"/><rect x="13.5" y="11" width="7.5" height="10" rx="1.5"/><rect x="3" y="15" width="7.5" height="6" rx="1.5"/></svg>Dashboard</button>
   <button class="tab" data-tab="tasks" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1.2 1.2L6.8 5M3.5 12l1.2 1.2 2.1-2.2M3.5 18l1.2 1.2 2.1-2.2"/></svg>Tasks</button>
-  <button class="tab" data-tab="settings" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2.2"/><circle cx="8" cy="17" r="2.2"/></svg>Lists &amp; setup</button>
+  <button class="tab" data-tab="done" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M8.3 12.2l2.6 2.6 4.9-5.3"/></svg>Completed</button>
+  <button class="tab" data-tab="settings" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2.2"/><circle cx="8" cy="17" r="2.2"/></svg>Setup</button>
 </div></nav>
 
 <div id="sheet-root"></div>
@@ -279,7 +298,7 @@ function openDigest(){
       ${over.length?`<div class="label" style="color:var(--danger)">Overdue · ${over.length}</div><div class="cards">${over.map(cardHTML).join('')}</div>`:''}
       ${soon.length?`<div class="label">Due in the next ${rdays()} days · ${soon.length}</div><div class="cards">${soon.map(cardHTML).join('')}</div>`:''}
       <div class="steps"><button class="btn small" type="button" id="cal-all">Add daily reminders to Calendar</button></div>
-      <p class="help">This summary shows once a day when you open the app. Change it in Lists &amp; setup → Reminders.</p>
+      <p class="help">This summary shows once a day when you open the app. Change it in Setup → Reminders.</p>
     </div></div></div>`;
 }
 function icsEsc(s){return String(s||'').replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\r?\n/g,'\\n')}
@@ -305,9 +324,9 @@ function addToCalendar(list){const l=list.filter(t=>t.due&&!isDone(t));if(!l.len
 function render(){
   $('#brand').textContent=cfg.appName||'Task Ledger';
   document.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-current',b.dataset.tab===tab?'page':'false'));
-  $('#v-dash').hidden=tab!=='dash';$('#v-tasks').hidden=tab!=='tasks';$('#v-settings').hidden=tab!=='settings';
-  $('#fab').hidden=tab==='settings';
-  if(tab==='dash')renderDash();else if(tab==='tasks')renderTasks();else renderSettings();
+  $('#v-dash').hidden=tab!=='dash';$('#v-tasks').hidden=tab!=='tasks';$('#v-done').hidden=tab!=='done';$('#v-settings').hidden=tab!=='settings';
+  $('#fab').hidden=tab==='settings'||tab==='done';
+  if(tab==='dash')renderDash();else if(tab==='tasks')renderTasks();else if(tab==='done')renderDone();else renderSettings();
   updateBadge();
   if(tab==='settings'){try{navigator.storage.estimate().then(e=>{const el=$('#st-use');if(el&&e&&e.usage!=null)el.textContent='Storage used on this phone: '+(e.usage/1048576).toFixed(1)+' MB'}).catch(()=>{})}catch(e){}}
 }
@@ -348,7 +367,7 @@ function renderDash(){
   ${attention.length?`<div class="panel"><div class="panel-h"><h2>Needs attention</h2><span class="label">Overdue · due soon · top priority</span></div><div class="cards">${attention.map(cardHTML).join('')}</div></div>`:''}
   <div class="panel"><div class="panel-h"><h2>By branch</h2><span class="label">open · progress</span></div><div class="rows">
     ${branchRows.map(({b,ts})=>{const o=ts.filter(t=>!isDone(t));const od=o.filter(t=>{const d=dayDiff(t.due);return d!==null&&d<0}).length;const p=Math.round(ts.reduce((a,t)=>a+(isDone(t)?100:(+t.progress||0)),0)/ts.length);
-      return `<button class="row" data-fb="${b.id}" type="button"><span class="row-name"><i class="dot" style="background:${col(b.color)}"></i><em>${esc(b.name)}</em></span><span class="row-meta">${o.length} open${od?` · <span class="bad">${od} late</span>`:''} · ${p}%</span><span class="bar"><i style="width:${p}%;background:${col(b.color)}"></i></span></button>`}).join('')}
+      const dn=ts.length-o.length;return `<button class="row" data-fb="${b.id}" type="button"><span class="row-name"><i class="dot" style="background:${col(b.color)}"></i><em>${esc(b.name)}</em></span><span class="row-meta">${o.length} open${dn?' · '+dn+' done':''}${od?` · <span class="bad">${od} late</span>`:''} · ${p}%</span><span class="bar"><i style="width:${p}%;background:${col(b.color)}"></i></span></button>`}).join('')}
   </div></div>
   ${peopleRows.length?`<div class="panel"><div class="panel-h"><h2>Workload</h2><span class="label">open tasks per person</span></div><div class="rows">
     ${peopleRows.map(({p,ts})=>{const od=ts.filter(t=>{const d=dayDiff(t.due);return d!==null&&d<0}).length;const max=Math.max(...peopleRows.map(x=>x.ts.length));
@@ -435,7 +454,7 @@ function renderSettings(){
     <p class="help" style="margin-bottom:10px">Tasks are stored on this phone and work without internet. Save a backup file now and then so nothing is lost if the app or browser data is cleared. A backup also moves your tasks to another phone.</p>
     <div class="steps"><button class="btn small primary" type="button" id="bk-file">Save backup file</button><label class="btn small" for="bk-open" style="cursor:pointer">Open backup or shared task</label><input type="file" id="bk-open" accept=".json,application/json,text/plain" hidden><button class="btn small" type="button" id="bk-copy">Copy as text</button><button class="btn small" type="button" id="bk-show">Paste backup text</button></div>
     <p class="help mono" id="st-use" style="font-size:12px;margin-top:10px"></p>
-    <p class="help mono" style="font-size:12px">App version 5 · photos, sharing &amp; PDF</p>
+    <p class="help mono" style="font-size:12px">App version 7 · completed tasks search</p>
     <div id="bk-area" hidden style="margin-top:10px" class="field"><label for="bk-text">Paste backup text</label><textarea class="in" id="bk-text"></textarea><div class="steps"><button class="btn small primary" type="button" id="bk-go">Restore (adds and replaces matching tasks)</button></div></div>
   </div>`;
 }
@@ -483,7 +502,7 @@ function drawSheet(){
         <div class="field"><span class="label">Share this task</span>
           <div class="steps"><button class="btn small" type="button" id="sh-task">Send task file</button><button class="btn small" type="button" id="sh-pdf">Create PDF report</button></div>
           ${sheet.shareReady?`<div class="confirm" style="background:var(--accent-soft)"><span style="flex:1 1 100%;overflow-wrap:anywhere">${esc(sheet.shareReady.name)} is ready.</span><button class="btn small primary" type="button" id="sh-go">Share</button><button class="btn small" type="button" id="sh-save">Save to phone</button></div>`:''}
-          <p class="help" style="font-size:12.5px">A task file opens in anyone's Task Ledger via Lists &amp; setup → Open backup or shared task. The PDF lists every update in date order, with photos.</p></div>
+          <p class="help" style="font-size:12.5px">A task file opens in anyone's Task Ledger via Setup → Open backup or shared task. The PDF lists every update in date order, with photos.</p></div>
         <div class="field">${sheet.confirmDel?`<div class="confirm">Delete ${tidOf(t)} and its comments? This can’t be undone. <button class="btn small danger fill" type="button" id="s-delyes">Delete task</button><button class="btn small" type="button" id="s-delno">Keep</button></div>`:`<button class="btn danger" type="button" id="s-del">Delete task</button>`}</div>
         <p class="help mono" style="font-size:11.5px">Created ${fmtStamp(t.createdAt)} · updated ${fmtStamp(t.updatedAt)}</p>`}
     </div></div></div>`;
@@ -495,9 +514,11 @@ let savedTimer;
 function flashSaved(){const s=$('#s-saved');if(!s)return;s.classList.add('show');clearTimeout(savedTimer);savedTimer=setTimeout(()=>s&&s.classList.remove('show'),1200)}
 function applyField(field,val){
   const t=sheet.draft, old=t[field];if(old===val)return;
+  const wasDone=isDone(t);
   t[field]=val;
   if(field==='status'){const s=find('statuses',val);if(s&&s.done&&(+t.progress||0)<100){t.progress=100}}
   if(field==='progress'&&val===100){const ds=cfg.statuses.find(s=>s.done);if(ds&&!isDone(t)){t.status=ds.id}}
+  if(!wasDone&&isDone(t))t.completedAt=Date.now();else if(wasDone&&!isDone(t))delete t.completedAt;
   sheet.shareReady=null;
   if(!sheet.isNew){
     const L={status:['Status',()=>nameOf('statuses',old,'none')+' → '+nameOf('statuses',val,'none')],owner:['Responsible',()=>nameOf('people',old,'unassigned')+' → '+nameOf('people',val,'unassigned')],
@@ -594,9 +615,64 @@ async function buildTaskPDF(t){
       y-=6;ensure(h+4);y-=h;const bin=atob(data.split(',')[1]);const n=imgs.length;imgs.push({bin,w:sz.w,h:sz.h});
       ops.push('q '+w.toFixed(2)+' 0 0 '+h.toFixed(2)+' '+TX.toFixed(2)+' '+y.toFixed(2)+' cm /Im'+n+' Do Q')}
     y=Math.min(y,top-30);y-=8;hline(y,[236,239,243])}
-  const nd=new Date();const stamp='Generated '+String(nd.getDate()).padStart(2,'0')+' '+MON[nd.getMonth()]+' '+nd.getFullYear()+', '+String(nd.getHours()).padStart(2,'0')+':'+String(nd.getMinutes()).padStart(2,'0');
-  pages.forEach((pg,i)=>{const o=ops;ops=pg;txt(M,26,stamp,8,'F1',MUTE);const pn='Page '+(i+1)+' of '+pages.length;txt(PW-M-textW(pn,8,'F1'),26,pn,8,'F1',MUTE);ops=o});
-  // assemble
+  pdfFooter(pages,(pg,x,yy,str,size,font,c)=>pg.push('BT /'+font+' '+size+' Tf '+col(c)+' rg '+x.toFixed(2)+' '+yy.toFixed(2)+' Td ('+pdfStr(str)+') Tj ET'),PW,M,MUTE);
+  const bytes=pdfAssemble(pages,imgs,PW,PH);
+  return new File([bytes],tidOf(t)+'-'+slug(t.title)+'-report.pdf',{type:'application/pdf'})}
+
+
+/* ---------- completed tasks by branch ---------- */
+const D={period:'all',branch:'',q:''};let doneShare=null;
+function doneAt(t){if(t.completedAt)return t.completedAt;
+  const logs=(t.comments||[]).filter(c=>c.kind==='log'&&/^(Status|Progress):/.test(c.text||'')).sort((a,b)=>b.at-a.at);
+  const ds=cfg.statuses.filter(s=>s.done).map(s=>s.name);const hit=logs.find(c=>/→ 100%$/.test(c.text)||ds.some(n=>c.text.endsWith('→ '+n)));
+  return hit?hit.at:(t.updatedAt||t.createdAt)}
+function isoOf(ts){const d=new Date(ts);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function lateBy(t){if(!t.due)return null;return Math.round((new Date(isoOf(doneAt(t))+'T00:00:00')-new Date(t.due+'T00:00:00'))/864e5)}
+function takenDays(t){return Math.max(0,Math.round((new Date(isoOf(doneAt(t))+'T00:00:00')-new Date(isoOf(t.createdAt||doneAt(t))+'T00:00:00'))/864e5))}
+const PERIODS=[['month','This month'],['last','Last month'],['90','Last 90 days'],['fy','This financial year'],['year','This calendar year'],['all','All time']];
+function periodRange(p){const n=new Date(),y=n.getFullYear(),m=n.getMonth();
+  if(p==='month')return [new Date(y,m,1),null];if(p==='last')return [new Date(y,m-1,1),new Date(y,m,1)];
+  if(p==='90'){const d=new Date(y,m,n.getDate());d.setDate(d.getDate()-89);return [d,null]}
+  if(p==='fy'){const fy=m>=3?y:y-1;return [new Date(fy,3,1),null]}if(p==='year')return [new Date(y,0,1),null];return [null,null]}
+function periodLabel(p){const n=new Date(),y=n.getFullYear(),m=n.getMonth();
+  if(p==='month')return MON[m]+' '+y;if(p==='last'){const d=new Date(y,m-1,1);return MON[d.getMonth()]+' '+d.getFullYear()}
+  if(p==='90'){const [a]=periodRange('90');return fmtDate(isoOf(a))+' to today'}
+  if(p==='fy'){const fy=m>=3?y:y-1;return 'FY '+fy+'-'+String(fy+1).slice(2)+' (Apr '+fy+' to date)'}
+  if(p==='year')return 'Jan to date, '+y;return 'All time'}
+function doneList(){const [a,b]=periodRange(D.period);
+  return [...tasks.values()].filter(t=>isDone(t)).filter(t=>{const d=doneAt(t);return (!a||d>=a.getTime())&&(!b||d<b.getTime())})
+    .filter(t=>!D.branch||(D.branch==='__none'?!find('branches',t.branch):t.branch===D.branch))
+    .filter(t=>{if(!D.q)return true;const q=D.q.toLowerCase();const p=find('people',t.owner);
+      return (t.title+' '+(t.notes||'')+' '+tidOf(t)+' '+(p?p.name:'')+' '+(t.comments||[]).filter(c=>c.kind!=='log').map(c=>c.text).join(' ')).toLowerCase().includes(q)})}
+function doneGroups(list){const gs=cfg.branches.map(b=>({b,ts:list.filter(t=>t.branch===b.id)}));
+  gs.push({b:{id:'__none',name:'No branch',color:'c1'},ts:list.filter(t=>!find('branches',t.branch))});
+  return gs.filter(g=>g.ts.length).map(g=>({b:g.b,ts:g.ts.sort((x,y)=>doneAt(y)-doneAt(x))}))}
+function doneStats(list){const withDue=list.filter(t=>t.due);const ontime=withDue.filter(t=>lateBy(t)<=0).length;
+  const avg=list.length?Math.round(list.reduce((s,t)=>s+takenDays(t),0)/list.length):0;
+  return {n:list.length,ontime,late:withDue.length-ontime,nodue:list.length-withDue.length,avg,pct:withDue.length?Math.round(ontime/withDue.length*100):null}}
+function resultOf(t){const l=lateBy(t);if(l===null)return ['na','No due date'];if(l<=0)return ['ok',l<0?(-l)+'d early':'On time'];return ['late',l+'d late']}
+function renderDone(){
+  const el=$('#v-done');const keepFocus=document.activeElement&&document.activeElement.id==='d-q';const list=doneList(),groups=doneGroups(list),st=doneStats(list);
+  const bopts=`<option value="">All branches</option>`+cfg.branches.map(b=>`<option value="${b.id}" ${D.branch===b.id?'selected':''}>${esc(b.name)}</option>`).join('')+`<option value="__none" ${D.branch==='__none'?'selected':''}>No branch</option>`;
+  el.innerHTML=`<div class="toolbar"><input class="search" id="d-q" type="search" placeholder="Search completed tasks, people, notes" value="${esc(D.q)}" autocomplete="off"><div class="filters">
+      <select class="chip-sel set" id="d-period" aria-label="Period">${PERIODS.map(([v,l])=>`<option value="${v}" ${D.period===v?'selected':''}>${l}</option>`).join('')}</select>
+      <select class="chip-sel ${D.branch?'set':''}" id="d-branch" aria-label="Branch">${bopts}</select>
+    </div>${D.period==='all'&&!D.q?'':`<div class="count">${D.period==='all'?'All time':esc(periodLabel(D.period))}${D.q?` · ${list.length} match${list.length===1?'':'es'} for “${esc(D.q)}” · <button class="btn small" type="button" id="d-clear">Clear search</button>`:''}</div>`}</div>
+    <div class="dsum">
+      <div class="kpi"><b>${st.n}</b><span>Completed</span></div>
+      <div class="kpi ${st.pct===null?'':st.pct>=80?'good':st.pct>=50?'warn':'alert'}"><b>${st.pct===null?'–':st.pct+'%'}</b><span>On time${st.pct===null?'':' ('+st.ontime+' of '+(st.ontime+st.late)+')'}</span></div>
+      <div class="kpi ${st.late?'alert':''}"><b>${st.late}</b><span>Finished late</span></div>
+      <div class="kpi"><b>${st.avg}</b><span>Avg days to finish</span></div>
+    </div>
+    ${list.length?`<div class="panel"><div class="steps"><button class="btn small primary" type="button" id="d-pdf">Create PDF report</button></div>
+      ${doneShare?`<div class="confirm" style="background:var(--accent-soft);margin-top:10px"><span style="flex:1 1 100%;overflow-wrap:anywhere">${esc(doneShare.name)} is ready.</span><button class="btn small primary" type="button" id="d-share">Share</button><button class="btn small" type="button" id="d-save">Save to phone</button></div>`:''}
+      <p class="help" style="font-size:12.5px;margin-top:8px">The report lists the tasks shown below, branch by branch, with due date, completion date and result.</p></div>`:''}
+    ${groups.length?groups.map(({b,ts})=>{const g=doneStats(ts);return `<div class="panel"><div class="dgroup-h"><h2><i class="dot" style="background:${col(b.color)}"></i><span>${esc(b.name)}</span></h2><span class="label">${ts.length} done${g.pct===null?'':' · '+g.pct+'% on time'}</span></div>
+      <div>${ts.map(t=>{const [rc,rl]=resultOf(t);const p=find('people',t.owner);return `<button class="drow" data-open="${t.id}" type="button"><span class="drow-t"><span class="tid">${tidOf(t)}</span><em>${esc(t.title||'Untitled task')}</em></span><span class="res ${rc}">${rl}</span><span class="drow-m">${p?esc(p.name)+' · ':''}Completed ${fmtDate(isoOf(doneAt(t)))}${t.due?' · due '+fmtDate(t.due):''} · ${takenDays(t)}d</span></button>`}).join('')}</div></div>`}).join('')
+    :`<div class="panel empty"><h3>${D.q?'No matches':'No completed tasks'}</h3><p class="help">${D.q?'Nothing completed in this period matches “'+esc(D.q)+'”. Check the spelling, or set the period to “All time”.':tasks.size?'Nothing was completed in this period. Try “All time” or another branch.':'Completed tasks will be listed here, branch by branch.'}</p></div>`}`;
+  if(keepFocus){const q=$('#d-q');q.focus();q.setSelectionRange(q.value.length,q.value.length)}
+}
+function pdfAssemble(pages,imgs,PW,PH){
   const chunks=[];let off=0;const offs=[];const push=s=>{chunks.push(s);off+=s.length};
   const nImg=imgs.length,firstImg=6,firstPage=firstImg+nImg;const total=firstPage+pages.length*2-1;
   push('%PDF-1.4\n%âãÏÓ\n');
@@ -613,8 +689,49 @@ async function buildTaskPDF(t){
     obj(cn,'<< /Length '+content.length+' >>\nstream\n'+content+'\nendstream')});
   const xref=off;let x='xref\n0 '+(total+1)+'\n0000000000 65535 f \n';for(let n=1;n<=total;n++)x+=String(offs[n]).padStart(10,'0')+' 00000 n \n';
   push(x+'trailer\n<< /Size '+(total+1)+' /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF');
-  const str=chunks.join('');const bytes=new Uint8Array(str.length);for(let i=0;i<str.length;i++)bytes[i]=str.charCodeAt(i)&255;
-  return new File([bytes],tidOf(t)+'-'+slug(t.title)+'-report.pdf',{type:'application/pdf'})}
+  const str=chunks.join('');const bytes=new Uint8Array(str.length);for(let i=0;i<str.length;i++)bytes[i]=str.charCodeAt(i)&255;return bytes}
+function pdfFooter(pages,txtFn,PW,M,MUTE){const nd=new Date();const stamp='Generated '+String(nd.getDate()).padStart(2,'0')+' '+MON[nd.getMonth()]+' '+nd.getFullYear()+', '+String(nd.getHours()).padStart(2,'0')+':'+String(nd.getMinutes()).padStart(2,'0');
+  pages.forEach((pg,i)=>{txtFn(pg,M,26,stamp,8,'F1',MUTE);const pn='Page '+(i+1)+' of '+pages.length;txtFn(pg,PW-M-textW(pn,8,'F1'),26,pn,8,'F1',MUTE)})}
+function buildDonePDF(){
+  const list=doneList(),groups=doneGroups(list),st=doneStats(list);
+  const PW=595.28,PH=841.89,M=48,CW=PW-2*M;const pages=[];let ops,y;
+  const INK=[18,24,33],MUTE=[112,120,132],LINE=[216,222,229],ACC=[36,71,201],RED=[194,54,43],OK=[31,138,91],SOFT=[241,244,247];
+  const col=c=>c.map(v=>(v/255).toFixed(3)).join(' ');
+  const T=(pg,x,yy,s,size,font,c)=>pg.push('BT /'+font+' '+size+' Tf '+col(c)+' rg '+x.toFixed(2)+' '+yy.toFixed(2)+' Td ('+pdfStr(s)+') Tj ET');
+  const txt=(x,yy,s,size,font,c)=>T(ops,x,yy,s,size,font,c);
+  const rect=(x,yy,w,h,c)=>ops.push(col(c)+' rg '+x.toFixed(2)+' '+yy.toFixed(2)+' '+w.toFixed(2)+' '+h.toFixed(2)+' re f');
+  const hline=(yy,c)=>ops.push(col(c)+' RG 0.5 w '+M+' '+yy.toFixed(2)+' m '+(PW-M)+' '+yy.toFixed(2)+' l S');
+  const newPage=()=>{ops=[];pages.push(ops);y=PH-M};
+  const COLS=[['T-no',44],['Task',176],['Responsible',84],['Due',54],['Completed',60],['Result',81.28]];
+  const head=()=>{rect(M,y-18,CW,18,SOFT);let x=M;COLS.forEach(([k,w])=>{txt(x+4,y-12.5,k.toUpperCase(),7,'F2',MUTE);x+=w});y-=18};
+  newPage();
+  txt(M,y-8,('Completed tasks report · '+(cfg.appName||'Task Ledger')).toUpperCase(),8.5,'F2',MUTE);y-=30;
+  const bname=D.branch?(D.branch==='__none'?'No branch':nameOf('branches',D.branch,'')):'All branches';
+  txt(M,y,bname+' · '+periodLabel(D.period),17,'F2',INK);y-=24;
+  if(D.q){txt(M,y+4,'Filtered by search: "'+D.q+'"',9.5,'F1',MUTE);y-=14}
+  const sumLine=st.n+' completed'+(st.pct===null?'':' · '+st.ontime+' on time ('+st.pct+'%) · '+st.late+' late')+(st.nodue?' · '+st.nodue+' without due date':'')+' · average '+st.avg+' days to finish';
+  wrapText(sumLine,CW,10,'F1').forEach(l=>{txt(M,y,l,10,'F1',INK);y-=14});y-=8;
+  if(groups.length>1){txt(M,y,'BY BRANCH',7.5,'F2',MUTE);y-=14;
+    groups.forEach(({b,ts})=>{const g=doneStats(ts);txt(M,y,b.name,9.5,'F1',INK);const r=ts.length+' done'+(g.pct===null?'':' · '+g.pct+'% on time');txt(M+CW-textW(r,9.5,'F1'),y,r,9.5,'F1',MUTE);y-=13});y-=6}
+  for(const {b,ts} of groups){
+    if(y-70<M+24)newPage();
+    y-=14;txt(M,y,b.name,12.5,'F2',INK);const g=doneStats(ts);const r=ts.length+' completed'+(g.pct===null?'':' · '+g.pct+'% on time');txt(M+CW-textW(r,9,'F1'),y,r,9,'F1',MUTE);y-=8;head();
+    for(const t of ts){const p=find('people',t.owner);const [rc,rl]=resultOf(t);
+      const tl=wrapText(t.title||'Untitled task',COLS[1][1]-8,9,'F1'),pl=wrapText(p?p.name:'Unassigned',COLS[2][1]-8,9,'F1');
+      const h=Math.max(tl.length,pl.length)*11+9;
+      if(y-h<M+24){newPage();txt(M,y-12,b.name+' (continued)',11,'F2',INK);y-=20;head()}
+      let x=M;const top=y-12;
+      txt(x+4,top,tidOf(t),8.5,'F3',ACC);x+=COLS[0][1];
+      tl.forEach((l,i)=>txt(x+4,top-i*11,l,9,'F1',INK));x+=COLS[1][1];
+      pl.forEach((l,i)=>txt(x+4,top-i*11,l,9,'F1',INK));x+=COLS[2][1];
+      txt(x+4,top,t.due?fmtDate(t.due):'–',9,'F1',INK);x+=COLS[3][1];
+      txt(x+4,top,fmtDate(isoOf(doneAt(t))),9,'F1',INK);x+=COLS[4][1];
+      txt(x+4,top,rl,9,'F2',rc==='ok'?OK:rc==='late'?RED:MUTE);
+      y-=h;hline(y,LINE)}
+    y-=6}
+  pdfFooter(pages,T,PW,M,MUTE);
+  const tag=(D.branch?slug(bname)+'-':'')+slug(periodLabel(D.period))+(D.q?'-'+slug(D.q):'');
+  return new File([pdfAssemble(pages,[],PW,PH)],'completed-tasks-'+tag+'.pdf',{type:'application/pdf'})}
 
 /* ---------- events ---------- */
 document.addEventListener('click',e=>{
@@ -622,6 +739,7 @@ document.addEventListener('click',e=>{
   if(b.dataset.tab){go(b.dataset.tab);return}
   if(b.id==='fab'){openTask(null);return}
   if(b.dataset.open){openTask(b.dataset.open);return}
+  if(b.dataset.kpi==='done'){D.period='all';D.branch='';D.q='';doneShare=null;go('done');return}
   if(b.dataset.kpi){Object.assign(F,{branch:'',owner:'',status:'',priority:'',q:''});F.hideDone=b.dataset.kpi!=='done';F.sort=b.dataset.kpi==='done'?'updated':'due';
     if(b.dataset.kpi==='done'){const ds=cfg.statuses.find(s=>s.done);F.status=ds?ds.id:''}go('tasks');return}
   if(b.dataset.fb){Object.assign(F,{branch:b.dataset.fb==='__none'?'':b.dataset.fb,owner:'',status:'',priority:'',q:'',hideDone:true});go('tasks');return}
@@ -642,6 +760,10 @@ document.addEventListener('click',e=>{
   if(b.id==='bk-go'){restore($('#bk-text').value);return}
   if(b.id==='bk-file'){backupText(true).then(txt=>{const blob=new Blob([txt],{type:'application/json'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download='task-ledger-backup-'+todayISO()+'.json';document.body.appendChild(a);a.click();setTimeout(()=>{a.remove();URL.revokeObjectURL(u)},1500)});return}
   if(b.id==='cal-all'){addToCalendar(dueSoon());return}
+  if(b.id==='d-clear'){D.q='';doneShare=null;renderDone();return}
+  if(b.id==='d-pdf'){try{doneShare=buildDonePDF()}catch(e){toast('Could not create the report. Try again.');return}renderDone();return}
+  if(b.id==='d-share'&&doneShare){shareOrSave(doneShare);return}
+  if(b.id==='d-save'&&doneShare){saveBlob(doneShare);return}
   if(b.id==='rm-badge'){const done=()=>{updateBadge();toast(navigator.setAppBadge?'Icon badge on. It updates each time you open the app.':'This phone doesn’t support icon badges for web apps.')};
     try{if(window.Notification&&Notification.permission!=='granted'){Notification.requestPermission().then(done,done)}else done()}catch(e){done()}return}
   // sheet
@@ -655,7 +777,7 @@ document.addEventListener('click',e=>{
   if(b.id==='s-close'){closeSheet();return}
   if(b.id==='s-create'){const t=sheet.draft;t.title=$('#s-title').value.trim();t.notes=$('#s-notes').value;
     if(!t.title){$('#s-title').focus();toast('Give the task a name first.');return}
-    logEntry(t,'Task created');saveTask(clone(t));closeSheet();toast(tidOf(t)+' added');return}
+    logEntry(t,'Task created');if(isDone(t))t.completedAt=Date.now();saveTask(clone(t));closeSheet();toast(tidOf(t)+' added');return}
   if(b.dataset.pset!==undefined){const v=+b.dataset.pset;sheet.draft.progress!==v&&(sheet.isNew?(sheet.draft.progress=v,$('#s-prog').value=v,$('#s-pct').textContent=v+'%'):applyField('progress',v));if(sheet.isNew&&v===100){const ds=cfg.statuses.find(s=>s.done);if(ds){sheet.draft.status=ds.id;$('#s-status').value=ds.id}}return}
   if(b.id==='s-post'){const ta=$('#s-cmt');const txt=ta.value.trim();const pend=sheet.pending||[];if(!txt&&!pend.length){ta.focus();return}
     const t=sheet.draft;b.disabled=true;
@@ -673,6 +795,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sheet)closeSheet()}
 document.addEventListener('input',e=>{
   const el=e.target;
   if(el.id==='q'){F.q=el.value;renderTasks();return}
+  if(el.id==='d-q'){D.q=el.value;doneShare=null;renderDone();return}
   if(el.id==='s-prog'){$('#s-pct').textContent=el.value+'%';if(sheet.isNew)sheet.draft.progress=+el.value}
 });
 document.addEventListener('change',e=>{
@@ -681,6 +804,7 @@ document.addEventListener('change',e=>{
     Promise.all(files.map(f=>compress(f).then(d=>({id:uid('i'),data:d}),()=>null))).then(list=>{const ok=list.filter(Boolean);if(ok.length<files.length)toast('One photo could not be read. Try a JPG or PNG.');
       sheet.pending=(sheet.pending||[]).concat(ok);const sc=$('.sheet-b').scrollTop;drawSheet();$('.sheet-b').scrollTop=sc});return}
   if(el.id==='bk-open'&&el.files&&el.files[0]){const r=new FileReader();r.onload=()=>restore(r.result);r.readAsText(el.files[0]);el.value='';return}
+  if(el.id==='d-period'||el.id==='d-branch'){D[el.id==='d-period'?'period':'branch']=el.value;doneShare=null;renderDone();return}
   const fm={'f-branch':'branch','f-owner':'owner','f-status':'status','f-priority':'priority','f-sort':'sort'};
   if(fm[el.id]){F[fm[el.id]]=el.value;renderTasks();return}
   if(el.id==='appname'){cfg.appName=el.value.trim()||'Task Ledger';saveCfg();return}
