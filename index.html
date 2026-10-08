@@ -174,6 +174,62 @@ input[type=range]{flex:1;accent-color:var(--accent);height:28px}
 .cmt-t{white-space:pre-wrap;overflow-wrap:anywhere}
 .cmt-x{background:none;border:0;color:var(--ink-3);font-size:12px;padding:2px 4px}
 .add-cmt{display:flex;gap:8px;align-items:flex-end}
+.guide details{border-top:1px solid var(--line)}
+.guide details:first-of-type{border-top:0}
+.guide summary{list-style:none;cursor:pointer;padding:11px 0;font-weight:650;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.guide summary::-webkit-details-marker{display:none}
+.guide summary::after{content:'+';font-size:18px;color:var(--ink-3);font-weight:400}
+.guide details[open] summary::after{content:'–'}
+.guide ol,.guide ul{margin:0 0 12px;padding-left:20px;display:grid;gap:5px;font-size:13.5px;color:var(--ink-2)}
+.guide b{color:var(--ink)}
+.sheet{position:relative}
+.fabs{position:fixed;right:16px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:6;display:flex;gap:10px}
+.fabs .fab{position:static}
+.fab.mic{background:var(--surface);color:var(--accent);border:1px solid var(--line);padding:0 16px 0 14px}
+.speak{display:grid;gap:8px;background:var(--surface);border:1px solid var(--accent);border-radius:12px;padding:12px}
+.speak textarea{min-height:84px}
+.speak-btn{display:inline-flex;align-items:center;gap:8px;color:var(--accent)}
+.speak-btn svg{width:18px;height:18px}
+.hint{font-size:12.5px;color:var(--ink-2);background:var(--surface-2);border-radius:8px;padding:8px 10px;margin:0}
+.pv{display:grid;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:4px 12px}
+.pv-row{display:grid;grid-template-columns:92px minmax(0,1fr);gap:10px;font-size:14px;align-items:baseline;padding:7px 0;border-top:1px solid var(--line)}
+.pv-row:first-child{border-top:0}
+.pv-row .k{font-size:11px;font-weight:650;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)}
+.pv-row .v{overflow-wrap:anywhere;font-weight:600}
+.pv-row .v.none{color:var(--ink-3);font-weight:400}
+.pv-row .tagd{font-size:11.5px;color:var(--ink-3);font-weight:400}
+.act{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;padding:7px 0;border-top:1px solid var(--line);overflow-wrap:anywhere}
+.act:first-child{border-top:0}
+.act input{margin-top:2px;width:18px;height:18px;accent-color:var(--accent);flex:none}
+.qa .sheet{height:auto;max-height:calc(100% - env(safe-area-inset-top,0px) - 12px)}
+.inp-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.inp-sum{font-size:13px;color:var(--ink-2);font-weight:600}
+.inp-sum .bad,.inp-meta .bad{color:var(--danger);font-weight:650}
+.segbar{display:flex;gap:3px;height:8px;margin:2px 0}
+.segbar i{flex:1;border-radius:3px;display:block}
+.inp-list{display:grid;gap:6px}
+.inp{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.inp.open{border-color:var(--accent)}
+.inp-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 10px;align-items:center;width:100%;text-align:left;background:none;border:0;padding:10px 12px}
+.inp-name{display:flex;align-items:center;gap:7px;font-weight:600;min-width:0}
+.inp-name em{font-style:normal;overflow-wrap:anywhere}
+.inp-meta{grid-column:1;font-size:12.5px;color:var(--ink-3);overflow-wrap:anywhere}
+.cchip{grid-row:1 / span 2;grid-column:2;font-size:11.5px;font-weight:650;padding:3px 9px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.inp-ed{border-top:1px solid var(--line);padding:10px 12px 12px;display:grid;gap:10px;background:var(--surface-2)}
+.cst{display:flex;flex-wrap:wrap;gap:6px}
+.cst button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 11px;font-size:13px;color:var(--ink-2)}
+.cst button[aria-pressed="true"]{border-color:currentColor;font-weight:700}
+.add-inp{display:grid;gap:8px;background:var(--surface);border:1px dashed var(--line);border-radius:10px;padding:10px 12px}
+.ctag{font-size:11.5px;font-weight:650;color:var(--accent)}
+.pill.inl{border-color:var(--line);color:var(--ink-2);font-weight:600}
+.pill.inl.late{color:var(--danger);border-color:currentColor}
+.calc{display:flex;align-items:center;gap:10px}
+.calc .bar{flex:1}
+.ask{position:absolute;inset:0;z-index:5;background:rgba(8,12,20,.5);display:flex;align-items:center;justify-content:center;padding:16px}
+.ask-box{background:var(--surface);border-radius:14px;padding:18px;max-width:360px;width:100%;display:grid;gap:10px;box-shadow:0 12px 40px -12px rgba(0,0,0,.5)}
+.ask-box h3{margin:0;font-family:var(--f-display);font-stretch:82%;font-size:21px}
+.ask-box p{margin:0;color:var(--ink-2);font-size:14px}
+.ask-box .steps{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .photo-btn{width:44px;height:44px;padding:0;display:grid;place-items:center;flex:none;cursor:pointer}
 .photo-btn svg{width:20px;height:20px}
 .thumbs{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
@@ -214,7 +270,7 @@ input[type=range]{flex:1;accent-color:var(--accent);height:28px}
   <section class="view" id="v-settings" hidden></section>
 </main>
 
-<button class="fab" id="fab" type="button" aria-label="New task"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>New task</button>
+<div class="fabs" id="fabs"><button class="fab mic" id="qa-btn" type="button" aria-label="Speak a task"><svg style="width:20px;height:20px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>Speak</button><button class="fab" id="fab" type="button" aria-label="New task"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>New task</button></div>
 
 <nav class="tabs"><div class="tabs-in">
   <button class="tab" data-tab="dash" aria-current="page" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="7.5" height="9" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="5" rx="1.5"/><rect x="13.5" y="11" width="7.5" height="10" rx="1.5"/><rect x="3" y="15" width="7.5" height="6" rx="1.5"/></svg>Dashboard</button>
@@ -224,6 +280,7 @@ input[type=range]{flex:1;accent-color:var(--accent);height:28px}
 </div></nav>
 
 <div id="sheet-root"></div>
+<div id="qa-root"></div>
 
 <script>
 (function(){
@@ -283,6 +340,26 @@ function boot(){
   if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){navigator.serviceWorker.register('sw.js').catch(()=>{})}
 }
 
+/* ---------- contributors (inputs) ---------- */
+const CST=[['pending','Pending','c5'],['progress','In progress','c2'],['received','Received','c4'],['nil','Nil return','c3'],['na','Not required','c1']];
+function cst(k){return CST.find(x=>x[0]===k)||CST[0]}
+function contribs(t){return Array.isArray(t&&t.contrib)?t.contrib:[]}
+function cActive(t){return contribs(t).filter(c=>c.status!=='na')}
+function cIn(c){return c.status==='received'||c.status==='nil'}
+function cOpen(c){return !cIn(c)&&c.status!=='na'}
+function cProg(c){return cIn(c)?100:Math.max(0,Math.min(100,+c.progress||0))}
+function cName(c){const b=find('branches',c.branch),p=find('people',c.person);return [b&&b.name,p&&p.name].filter(Boolean).join(' – ')||c.label||'Unnamed'}
+function cNames(t){return contribs(t).map(cName).join(' ')}
+function cDue(c,t){return c.due||t.due||''}
+function cLate(c,t){if(!cOpen(c))return 0;const d=dayDiff(cDue(c,t));return d!==null&&d<0?-d:0}
+function inSum(t){const a=cActive(t);return {n:a.length,got:a.filter(cIn).length,late:a.filter(c=>cLate(c,t)).length}}
+function calcProg(t){const a=cActive(t);return a.length?Math.round(a.reduce((s,c)=>s+cProg(c),0)/a.length):null}
+function allIn(t){const a=cActive(t);return a.length>0&&a.every(cIn)}
+function involvesBranch(t,id){return t.branch===id||contribs(t).some(c=>c.branch===id)}
+function involvesPerson(t,id){return t.owner===id||contribs(t).some(c=>c.person===id)}
+function cColor(c,t){return cLate(c,t)?'var(--danger)':col(cst(c.status)[2])}
+function pendingInputs(list){const out=[];list.filter(t=>!isDone(t)).forEach(t=>contribs(t).filter(cOpen).forEach(c=>out.push({t,c,late:cLate(c,t),due:cDue(c,t)})));return out}
+
 /* ---------- reminders ---------- */
 function rdays(){const n=+((cfg.remind||{}).days);return n>0?Math.min(n,60):7}
 function dueSoon(){const n=rdays();return [...tasks.values()].filter(t=>!isDone(t)&&t.due&&dayDiff(t.due)<=n).sort((a,b)=>a.due<b.due?-1:a.due>b.due?1:prRank(a)-prRank(b))}
@@ -325,7 +402,7 @@ function render(){
   $('#brand').textContent=cfg.appName||'Task Ledger';
   document.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-current',b.dataset.tab===tab?'page':'false'));
   $('#v-dash').hidden=tab!=='dash';$('#v-tasks').hidden=tab!=='tasks';$('#v-done').hidden=tab!=='done';$('#v-settings').hidden=tab!=='settings';
-  $('#fab').hidden=tab==='settings'||tab==='done';
+  $('#fabs').hidden=tab==='settings'||tab==='done';
   if(tab==='dash')renderDash();else if(tab==='tasks')renderTasks();else if(tab==='done')renderDone();else renderSettings();
   updateBadge();
   if(tab==='settings'){try{navigator.storage.estimate().then(e=>{const el=$('#st-use');if(el&&e&&e.usage!=null)el.textContent='Storage used on this phone: '+(e.usage/1048576).toFixed(1)+' MB'}).catch(()=>{})}catch(e){}}
@@ -345,9 +422,10 @@ function renderDash(){
   const C=2*Math.PI*36, off=C*(1-avg/100);
   const stat=cfg.statuses.map(s=>({s,n:all.filter(t=>t.status===s.id).length})).filter(x=>x.n);
   const other=all.filter(t=>!find('statuses',t.status)).length;
-  const branchRows=[...cfg.branches.map(b=>({b,ts:all.filter(t=>t.branch===b.id)})),{b:{id:'__none',name:'No branch',color:'c1'},ts:all.filter(t=>!find('branches',t.branch))}].filter(x=>x.ts.length);
-  const peopleRows=[...cfg.people.map(p=>({p,ts:open.filter(t=>t.owner===p.id)})),{p:{id:'__none',name:'Unassigned',color:'c1'},ts:open.filter(t=>!find('people',t.owner))}].filter(x=>x.ts.length);
-  const attention=open.filter(t=>{const d=dayDiff(t.due);return (d!==null&&d<=2)||prRank(t)===0}).sort((a,b)=>(a.due||'9')<(b.due||'9')?-1:1).slice(0,6);
+  const branchRows=[...cfg.branches.map(b=>({b,ts:all.filter(t=>involvesBranch(t,b.id))})),{b:{id:'__none',name:'No branch',color:'c1'},ts:all.filter(t=>!find('branches',t.branch))}].filter(x=>x.ts.length);
+  const peopleRows=[...cfg.people.map(p=>({p,ts:open.filter(t=>involvesPerson(t,p.id))})),{p:{id:'__none',name:'Unassigned',color:'c1'},ts:open.filter(t=>!find('people',t.owner))}].filter(x=>x.ts.length);
+  const PI=pendingInputs(all);const PIlate=PI.filter(x=>x.late);
+  const attention=open.filter(t=>{const d=dayDiff(t.due);return (d!==null&&d<=2)||prRank(t)===0||inSum(t).late}).sort((a,b)=>(a.due||'9')<(b.due||'9')?-1:1).slice(0,6);
   const recent=all.slice().sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0)).slice(0,4);
   el.innerHTML=note+`
   <div class="kpis">
@@ -365,13 +443,17 @@ function renderDash(){
     <div class="legend">${stat.map(x=>`<span><i class="dot" style="background:${col(x.s.color)}"></i>${esc(x.s.name)} <b class="mono">${x.n}</b></span>`).join('')}</div>
   </div>
   ${attention.length?`<div class="panel"><div class="panel-h"><h2>Needs attention</h2><span class="label">Overdue · due soon · top priority</span></div><div class="cards">${attention.map(cardHTML).join('')}</div></div>`:''}
-  <div class="panel"><div class="panel-h"><h2>By branch</h2><span class="label">open · progress</span></div><div class="rows">
+  ${PI.length?`<div class="panel"><div class="panel-h"><h2>Inputs awaited</h2><span class="label">${PI.length} pending${PIlate.length?` · <span style="color:var(--danger)">${PIlate.length} overdue</span>`:''}</span></div><div class="rows">
+    ${PI.slice().sort((a,b)=>(b.late-a.late)||((a.due||'9999')<(b.due||'9999')?-1:1)).slice(0,6).map(({t,c,late,due})=>{const br=find('branches',c.branch);return `<button class="row" data-open="${t.id}" type="button"><span class="row-name"><i class="dot" style="background:${br?col(br.color):'var(--line)'}"></i><em>${esc(cName(c))}</em></span><span class="row-meta">${late?`<span class="bad">${late}d overdue</span>`:due?'due '+fmtDate(due):esc(cst(c.status)[1])}</span><span class="muted" style="grid-column:1 / -1;font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${tidOf(t)} · ${esc(t.title||'Untitled task')}</span></button>`}).join('')}
+    ${PI.length>6?`<p class="help" style="font-size:12.5px;margin-top:8px">${PI.length-6} more. Filter Tasks by branch or person to see them all.</p>`:''}
+  </div></div>`:''}
+  <div class="panel"><div class="panel-h"><h2>By branch</h2><span class="label">lead or contributing</span></div><div class="rows">
     ${branchRows.map(({b,ts})=>{const o=ts.filter(t=>!isDone(t));const od=o.filter(t=>{const d=dayDiff(t.due);return d!==null&&d<0}).length;const p=Math.round(ts.reduce((a,t)=>a+(isDone(t)?100:(+t.progress||0)),0)/ts.length);
-      const dn=ts.length-o.length;return `<button class="row" data-fb="${b.id}" type="button"><span class="row-name"><i class="dot" style="background:${col(b.color)}"></i><em>${esc(b.name)}</em></span><span class="row-meta">${o.length} open${dn?' · '+dn+' done':''}${od?` · <span class="bad">${od} late</span>`:''} · ${p}%</span><span class="bar"><i style="width:${p}%;background:${col(b.color)}"></i></span></button>`}).join('')}
+      const dn=ts.length-o.length;const pin=PI.filter(x=>x.c.branch===b.id).length;return `<button class="row" data-fb="${b.id}" type="button"><span class="row-name"><i class="dot" style="background:${col(b.color)}"></i><em>${esc(b.name)}</em></span><span class="row-meta">${o.length} open${dn?' · '+dn+' done':''}${pin?' · '+pin+' input'+(pin>1?'s':'')+' due':''}${od?` · <span class="bad">${od} late</span>`:''} · ${p}%</span><span class="bar"><i style="width:${p}%;background:${col(b.color)}"></i></span></button>`}).join('')}
   </div></div>
-  ${peopleRows.length?`<div class="panel"><div class="panel-h"><h2>Workload</h2><span class="label">open tasks per person</span></div><div class="rows">
+  ${peopleRows.length?`<div class="panel"><div class="panel-h"><h2>Workload</h2><span class="label">open tasks, as lead or contributor</span></div><div class="rows">
     ${peopleRows.map(({p,ts})=>{const od=ts.filter(t=>{const d=dayDiff(t.due);return d!==null&&d<0}).length;const max=Math.max(...peopleRows.map(x=>x.ts.length));
-      return `<button class="row" data-fp="${p.id}" type="button"><span class="row-name"><span class="avatar" style="background:${col(p.color)}">${esc(initials(p.name))}</span><em>${esc(p.name)}</em></span><span class="row-meta">${ts.length} open${od?` · <span class="bad">${od} late</span>`:''}</span><span class="bar"><i style="width:${ts.length/max*100}%;background:${col(p.color)}"></i></span></button>`}).join('')}
+      const pin=PI.filter(x=>x.c.person===p.id).length;return `<button class="row" data-fp="${p.id}" type="button"><span class="row-name"><span class="avatar" style="background:${col(p.color)}">${esc(initials(p.name))}</span><em>${esc(p.name)}</em></span><span class="row-meta">${ts.length} open${pin?' · '+pin+' input'+(pin>1?'s':'')+' pending':''}${od?` · <span class="bad">${od} late</span>`:''}</span><span class="bar"><i style="width:${ts.length/max*100}%;background:${col(p.color)}"></i></span></button>`}).join('')}
   </div></div>`:''}
   <div class="panel"><div class="panel-h"><h2>Recently updated</h2></div><div class="cards">${recent.map(cardHTML).join('')}</div></div>`;
 }
@@ -381,10 +463,10 @@ function cardHTML(t){
   const d=dayDiff(t.due), dn=isDone(t);
   let due='';if(t.due){const cls=!dn&&d<0?'over':(!dn&&d<=2?'soon':'');const rel=dn?'':(d<0?` · ${-d}d late`:d===0?' · today':d===1?' · tomorrow':` · in ${d}d`);due=`<span class="due ${cls}">${fmtDate(t.due)}${rel}</span>`}
   const prog=dn?100:(+t.progress||0);
-  const nc=(t.comments||[]).filter(c=>c.kind!=='log').length;const np=taskImgIds(t).length;
+  const nc=(t.comments||[]).filter(c=>c.kind!=='log').length;const np=taskImgIds(t).length;const IS=inSum(t);
   return `<button class="card ${dn?'done':''}" data-open="${t.id}" type="button"><span class="pri" style="background:${pr?col(pr.color):'var(--line)'}"></span><span class="card-b">
     <span class="card-t"><span class="tid">${tidOf(t)}</span><span class="card-title">${esc(t.title||'Untitled task')}</span></span>
-    <span class="meta">${s?`<span class="pill" style="color:${col(s.color)}">${esc(s.name)}</span>`:''}${b?`<span class="pill solid"><i class="dot" style="background:${col(b.color)}"></i>${esc(b.name)}</span>`:''}${p?`<span class="avatar" title="${esc(p.name)}" style="background:${col(p.color)}">${esc(initials(p.name))}</span><span>${esc(p.name)}</span>`:''}${due}${nc?`<span class="muted">· ${nc} note${nc>1?'s':''}</span>`:''}${np?`<span class="muted">· ${np} photo${np>1?'s':''}</span>`:''}</span>
+    <span class="meta">${s?`<span class="pill" style="color:${col(s.color)}">${esc(s.name)}</span>`:''}${b?`<span class="pill solid"><i class="dot" style="background:${col(b.color)}"></i>${esc(b.name)}</span>`:''}${p?`<span class="avatar" title="${esc(p.name)}" style="background:${col(p.color)}">${esc(initials(p.name))}</span><span>${esc(p.name)}</span>`:''}${IS.n?`<span class="pill inl ${IS.late&&!dn?'late':''}">Inputs ${IS.got}/${IS.n}${IS.late&&!dn?' · '+IS.late+' late':''}</span>`:''}${due}${nc?`<span class="muted">· ${nc} note${nc>1?'s':''}</span>`:''}${np?`<span class="muted">· ${np} photo${np>1?'s':''}</span>`:''}</span>
     <span class="prog"><span class="bar"><i style="width:${prog}%;background:${s?col(s.color):'var(--accent)'}"></i></span><b>${prog}%</b></span>
   </span></button>`;
 }
@@ -395,11 +477,11 @@ function renderTasks(){
   const keepFocus=document.activeElement&&document.activeElement.id==='q';
   let list=[...tasks.values()].filter(t=>{
     if(F.hideDone&&isDone(t))return false;
-    if(F.branch&&t.branch!==F.branch)return false;
-    if(F.owner&&t.owner!==F.owner)return false;
+    if(F.branch&&!involvesBranch(t,F.branch))return false;
+    if(F.owner&&!involvesPerson(t,F.owner))return false;
     if(F.status&&t.status!==F.status)return false;
     if(F.priority&&t.priority!==F.priority)return false;
-    if(F.q){const q=F.q.toLowerCase();const hay=(t.title+' '+(t.notes||'')+' '+tidOf(t)+' '+(t.comments||[]).map(c=>c.text).join(' ')).toLowerCase();if(!hay.includes(q))return false}
+    if(F.q){const q=F.q.toLowerCase();const hay=(t.title+' '+(t.notes||'')+' '+tidOf(t)+' '+cNames(t)+' '+(t.comments||[]).map(c=>c.text).join(' ')).toLowerCase();if(!hay.includes(q))return false}
     return true});
   const sorts={due:(a,b)=>(a.due||'9999')<(b.due||'9999')?-1:(a.due||'9999')>(b.due||'9999')?1:prRank(a)-prRank(b),
     priority:(a,b)=>prRank(a)-prRank(b)||((a.due||'9999')<(b.due||'9999')?-1:1),
@@ -429,7 +511,7 @@ function renderTasks(){
 function renderSettings(){
   const el=$('#v-settings');
   if(el.contains(document.activeElement)&&document.activeElement.matches('input[type=text]'))return; // don't clobber typing
-  const usage=(key,id)=>[...tasks.values()].filter(t=>t[{branches:'branch',people:'owner',statuses:'status',priorities:'priority'}[key]]===id).length;
+  const usage=(key,id)=>[...tasks.values()].filter(t=>t[{branches:'branch',people:'owner',statuses:'status',priorities:'priority'}[key]]===id||(key==='branches'&&contribs(t).some(c=>c.branch===id))||(key==='people'&&contribs(t).some(c=>c.person===id))).length;
   el.innerHTML=`<div class="panel"><div class="field"><label for="appname">Tracker name</label><input class="in" id="appname" type="text" maxlength="40" value="${esc(cfg.appName)}"></div></div>
   ${LISTS.map(L=>`<div class="panel"><div class="panel-h"><h2>${L.title}</h2><span class="label">${cfg[L.key].length}</span></div><p class="help" style="margin-bottom:10px">${L.help}</p>
     <div class="list-ed">${cfg[L.key].map((x,i)=>`<div><div class="le-row">
@@ -454,8 +536,39 @@ function renderSettings(){
     <p class="help" style="margin-bottom:10px">Tasks are stored on this phone and work without internet. Save a backup file now and then so nothing is lost if the app or browser data is cleared. A backup also moves your tasks to another phone.</p>
     <div class="steps"><button class="btn small primary" type="button" id="bk-file">Save backup file</button><label class="btn small" for="bk-open" style="cursor:pointer">Open backup or shared task</label><input type="file" id="bk-open" accept=".json,application/json,text/plain" hidden><button class="btn small" type="button" id="bk-copy">Copy as text</button><button class="btn small" type="button" id="bk-show">Paste backup text</button></div>
     <p class="help mono" id="st-use" style="font-size:12px;margin-top:10px"></p>
-    <p class="help mono" style="font-size:12px">App version 7 · completed tasks search</p>
+    <p class="help mono" style="font-size:12px">App version 10 · in-app guide</p>
     <div id="bk-area" hidden style="margin-top:10px" class="field"><label for="bk-text">Paste backup text</label><textarea class="in" id="bk-text"></textarea><div class="steps"><button class="btn small primary" type="button" id="bk-go">Restore (adds and replaces matching tasks)</button></div></div>
+  </div>
+  <div class="panel guide"><div class="panel-h"><h2>How to use</h2><span class="label">Quick guide</span></div>
+    <details><summary>1. First-time setup</summary><ol>
+      <li>In this <b>Setup</b> tab, rename the tracker and enter your <b>branches</b>, <b>people</b>, <b>statuses</b> and <b>priorities</b>. Tap a colour dot to change it and the arrow to reorder.</li>
+      <li>Tick <b>done</b> against the status(es) that close a task.</li>
+      <li>Set the <b>reminder window</b> and daily alert time under Reminders.</li>
+      <li>Delete any sample tasks.</li></ol></details>
+    <details><summary>2. Adding a task</summary><ol>
+      <li>Tap <b>New task</b>, fill in the title, lead branch, lead person, priority and due date, then tap <b>Add task</b>.</li>
+      <li>Or tap <b>Speak</b>, tap the microphone on your keyboard and say it in one go: <i>“Compile training returns, lead Head Office, inputs from Finance and Logistics, due 15 October, urgent.”</i> Check the preview, then <b>Add task</b> or <b>Edit before adding</b>.</li>
+      <li>Speak branch and people names as they are written in Setup. A name like “Finance / वित्त” answers to either word.</li></ol></details>
+    <details><summary>3. Inputs from several branches or people</summary><ol>
+      <li>Inside a task, under <b>Inputs required from</b>, tap <b>+ Add branch or person</b>. Add as many as needed, each with an optional own due date.</li>
+      <li>Tap a contributor to set <b>Pending, In progress, Received, Nil return</b> or <b>Not required</b>, its progress and a remark.</li>
+      <li>Task progress is then worked out from the inputs. When the last input arrives you are asked to <b>Close</b> the task or <b>Continue</b> it.</li></ol></details>
+    <details><summary>4. Updating progress</summary><ol>
+      <li>Change status, progress, due date or priority directly in the task. Every change is logged with date and time.</li>
+      <li>Or tap <b>Speak an update</b>: <i>“Finance input received, Logistics nil return, extend due date to 20 October.”</i> Untick anything misread, then <b>Apply update</b>.</li>
+      <li>Post comments and photos under <b>Comments &amp; history</b>. Use “About” to tag a comment to a contributor.</li></ol></details>
+    <details><summary>5. Keeping track</summary><ul>
+      <li><b>Dashboard</b>: open, overdue and due-soon counts, inputs awaited, progress by branch and workload per person. Tap any row to see those tasks.</li>
+      <li><b>Tasks</b>: search, filter by branch, person, status or priority, and sort. Branch and person filters include contributors.</li>
+      <li><b>Completed</b>: finished tasks branch by branch, with on-time results, search and a PDF report.</li>
+      <li><b>Reminders</b>: a daily due-soon summary when you open the app, and <b>Add to Calendar</b> for phone alerts.</li></ul></details>
+    <details><summary>6. Sharing and reports</summary><ul>
+      <li>In a task, <b>Create PDF report</b> gives its particulars, inputs and a dated timeline with photos.</li>
+      <li><b>Send task file</b> lets another Task Ledger user open the task via <b>Open backup or shared task</b> above. It is a copy, not a live link.</li></ul></details>
+    <details><summary>7. Backups and updates</summary><ul>
+      <li>Your tasks live only on this phone. Tap <b>Save backup file</b> weekly and keep it in iCloud or Google Drive.</li>
+      <li>Deleting the app icon, clearing website data or resetting the phone erases tasks unless you have a backup.</li>
+      <li>After a new version is uploaded, open the app online, close it fully and reopen it. The version number above confirms the update.</li></ul></details>
   </div>`;
 }
 let pendingDel=null;
@@ -475,7 +588,107 @@ function refreshSheet(){if(!sheet||sheet.isNew)return;const t=tasks.get(sheet.id
   const a=document.activeElement;if(a&&$('#sheet-root').contains(a)&&a.matches('input,textarea,select'))return;
   const sc=$('.sheet-b')?.scrollTop||0;const cmt=$('#s-cmt')?.value||'';sheet.draft=clone(t);drawSheet();$('.sheet-b').scrollTop=sc;if(cmt)$('#s-cmt').value=cmt}
 function sel(list,val,none){return `<option value="">${none}</option>`+cfg[list].map(x=>`<option value="${x.id}" ${x.id===val?'selected':''}>${esc(x.name)}</option>`).join('')}
+function inputsHTML(t){
+  const cs=contribs(t),S=inSum(t);
+  const segs=cs.filter(c=>c.status!=='na').slice().sort((a,b)=>CST.findIndex(x=>x[0]===b.status)-CST.findIndex(x=>x[0]===a.status));
+  const row=c=>{const st=cst(c.status),late=cLate(c,t),due=cDue(c,t),br=find('branches',c.branch),open=sheet.openC===c.id;
+    const notes=(t.comments||[]).filter(x=>x.about===c.id).length;
+    const meta=cIn(c)?`${st[1]} ${c.inAt?fmtDate(isoOf(c.inAt)):''}`:c.status==='na'?'Not required':
+      (due?(late?`<span class="bad">${late}d overdue</span> · due ${fmtDate(due)}`:`Due ${fmtDate(due)}${c.due?'':' (task date)'}`):'No due date')+(c.status==='progress'?` · ${cProg(c)}%`:'');
+    return `<div class="inp ${open?'open':''}"><button class="inp-row" type="button" data-cedit="${c.id}" aria-expanded="${open}"><span class="inp-name"><i class="dot" style="background:${br?col(br.color):'var(--line)'}"></i><em>${esc(cName(c))}</em></span><span class="cchip" style="color:${cColor(c,t)}">${late?'Overdue':st[1]}</span><span class="inp-meta">${meta}${c.remark?' · '+esc(c.remark):''}${notes?' · '+notes+' note'+(notes>1?'s':''):''}</span></button>
+    ${open?`<div class="inp-ed">
+      <div class="cst" role="group" aria-label="Input status">${CST.map(([k,l,cc])=>`<button type="button" data-cst="${c.id}|${k}" aria-pressed="${c.status===k}" style="${c.status===k?'color:'+col(cc):''}">${l}</button>`).join('')}</div>
+      ${cOpen(c)?`<div class="slider-row"><input type="range" min="0" max="100" step="10" value="${cProg(c)}" data-cprog="${c.id}" aria-label="Input progress"><span class="pct" id="cp-${c.id}">${cProg(c)}%</span></div>`:''}
+      <div class="grid2">
+        <div class="field"><label>Branch</label><select class="in" data-cbr="${c.id}">${sel('branches',c.branch,'— None —')}</select></div>
+        <div class="field"><label>Person</label><select class="in" data-cpe="${c.id}">${sel('people',c.person,'— None —')}</select></div>
+        <div class="field"><label>Own due date</label><input class="in" type="date" data-cdue="${c.id}" value="${esc(c.due||'')}"></div>
+        <div class="field"><label>Remark</label><input class="in" type="text" maxlength="120" data-crem="${c.id}" value="${esc(c.remark||'')}" placeholder="e.g. awaiting figures"></div>
+      </div>
+      <div class="steps">${sheet.confirmC===c.id?`<span class="help" style="align-self:center">Remove this input?</span><button class="btn small danger fill" type="button" data-crmyes="${c.id}">Remove</button><button class="btn small" type="button" data-crmno>Keep</button>`:`<button class="btn small" type="button" data-cedit="${c.id}">Done</button><button class="btn small danger" type="button" data-crm="${c.id}">Remove input</button>`}</div>
+    </div>`:''}</div>`};
+  return `<div class="field"><div class="inp-h"><span class="label">Inputs required from</span>${S.n?`<span class="inp-sum">${S.got} of ${S.n} received${S.late?` · <span class="bad">${S.late} overdue</span>`:''}</span>`:''}</div>
+    ${segs.length?`<div class="segbar" aria-hidden="true">${segs.map(c=>`<i style="background:${cColor(c,t)};opacity:${cIn(c)?1:c.status==='progress'?.75:.45}"></i>`).join('')}</div>`:''}
+    ${cs.length?`<div class="inp-list">${cs.map(row).join('')}</div>`:`<p class="help" style="font-size:12.5px">Add branches or people whose inputs this task needs. Each gets its own status, due date and remarks.</p>`}
+    ${sheet.addC?`<div class="add-inp"><div class="grid2">
+        <div class="field"><label for="a-br">Branch</label><select class="in" id="a-br">${sel('branches','','— None —')}</select></div>
+        <div class="field"><label for="a-pe">Person</label><select class="in" id="a-pe">${sel('people','','— None —')}</select></div></div>
+        <div class="field"><label for="a-due">Own due date (optional)</label><input class="in" id="a-due" type="date"></div>
+        <div class="steps"><button class="btn small primary" type="button" id="c-add">Add input</button><button class="btn small" type="button" id="c-addx">Finished adding</button></div></div>`
+      :`<div class="steps"><button class="btn small" type="button" id="c-addopen">+ Add branch or person</button></div>`}
+  </div>`}
+function syncProg(t){const p=calcProg(t);if(p!==null)t.progress=p}
+function cCommit(t,logText,cName_){if(!sheet.isNew){if(logText)logEntry(t,'Input · '+cName_+': '+logText);sheet.shareReady=null;saveTask(clone(t)).then(flashSaved)}}
+function redrawKeep(){const sc=$('.sheet-b')?$('.sheet-b').scrollTop:0;drawSheet();$('.sheet-b').scrollTop=sc}
+function cMutate(t,c,patch,log){
+  const before=clone(c);Object.assign(c,patch);
+  if('status' in patch){if(cIn(c)&&!cIn(before))c.inAt=Date.now();if(!cIn(c))delete c.inAt}
+  if('progress' in patch&&c.status==='pending'&&(+c.progress||0)>0&&!('status' in patch))c.status='progress';
+  syncProg(t);
+  let L='';
+  if('status' in patch&&before.status!==c.status)L=cst(before.status)[1]+' → '+cst(c.status)[1];
+  else if('progress' in patch&&cProg(before)!==cProg(c))L='progress '+cProg(before)+'% → '+cProg(c)+'%'+(before.status!==c.status?' ('+cst(c.status)[1]+')':'');
+  else if('due' in patch&&before.due!==c.due)L='own due date '+(before.due?fmtDate(before.due):'none')+' → '+(c.due?fmtDate(c.due):'none');
+  else if('remark' in patch&&before.remark!==c.remark)L=c.remark?'remark "'+c.remark+'"':'remark cleared';
+  else if(('branch' in patch||'person' in patch)&&cName(before)!==cName(c))L='changed to '+cName(c);
+  if(log&&L)logEntry(t,'Input · '+cName(before)+': '+L);
+  return !!L}
+function cChange(cid,patch){
+  const t=sheet.draft;const c=contribs(t).find(x=>x.id===cid);if(!c)return;
+  const was=allIn(t);cMutate(t,c,patch,!sheet.isNew);
+  if(!sheet.isNew){sheet.shareReady=null;saveTask(clone(t)).then(flashSaved)}
+  if(!sheet.isNew&&!was&&allIn(t)&&!isDone(t))sheet.askClose=true;
+  redrawKeep()}
+function applyUpdate(acts){
+  const t=sheet.draft;const was=allIn(t);let n=0,closing=false;
+  acts.filter(a=>a.kind==='addc').forEach(a=>{if(contribs(t).some(c=>(c.branch||'')===(a.branch||'')&&(c.person||'')===(a.person||'')))return;
+    const c={id:uid('k'),branch:a.branch||'',person:a.person||'',status:'pending',progress:0,due:'',remark:'',addedAt:Date.now()};t.contrib=contribs(t).concat([c]);logEntry(t,'Input requested from '+cName(c));n++});
+  acts.filter(a=>a.kind==='cst'||a.kind==='cprog'||a.kind==='cdue').forEach(a=>{const c=contribs(t).find(x=>x.id===a.cid);if(!c)return;
+    if(cMutate(t,c,a.kind==='cst'?{status:a.val}:a.kind==='cprog'?{progress:a.val}:{due:a.val},true))n++});
+  syncProg(t);
+  acts.filter(a=>a.kind==='field').forEach(a=>{if(a.field==='progress'&&cActive(t).length)return;if(fieldCore(t,a.field,a.val,true)){n++;if(a.field==='status'&&isDone(t))closing=true}});
+  const cm=acts.find(a=>a.kind==='comment');
+  if(cm&&cm.text){const nc={id:uid('c'),text:cm.text,at:Date.now(),kind:'note',images:[]};const ab=cm.about&&contribs(t).find(x=>x.id===cm.about);if(ab){nc.about=ab.id;nc.aboutName=cName(ab)}t.comments=t.comments||[];t.comments.push(nc)}
+  sheet.shareReady=null;saveTask(clone(t)).then(flashSaved);
+  if(!was&&allIn(t)&&!isDone(t)&&!closing)sheet.askClose=true;
+  return n}
+const MIC_SVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>';
+function speakHTML(t){
+  if(!sheet.uOpen)return `<div class="field"><button class="btn speak-btn" type="button" id="u-open">${MIC_SVG}Speak an update</button></div>`;
+  return `<div class="speak"><div class="inp-h"><span class="label">Speak an update</span><button class="btn small" type="button" id="u-cancel">Cancel</button></div>
+    <p class="hint">Tap the microphone on your keyboard and speak, for example: “Finance input received, Logistics nil return, extend due date to 20 October.” Check the changes below, then apply.</p>
+    <textarea class="in" id="u-txt" placeholder="Speak or type the update">${esc(sheet.uText||'')}</textarea>
+    <div id="u-prev">${updPrevHTML(t)}</div>
+    <div class="steps"><button class="btn primary" type="button" id="u-apply">Apply update</button></div></div>`}
+function updPrevHTML(t){const txt=(sheet.uText||'').trim();if(!txt)return '<p class="help" style="font-size:12.5px">The changes the app understands will be listed here for you to check.</p>';
+  const acts=parseUpdate(t,txt).acts;const off=sheet.uOff||new Set();const real=acts.filter(a=>a.kind!=='comment'&&a.kind!=='note').length;
+  return `<div class="pv">${acts.map((a,i)=>a.kind==='note'?`<div class="act">${actLabel(t,a)}</div>`:`<label class="act"><input type="checkbox" data-uact="${i}" ${off.has(i)?'':'checked'}><span>${actLabel(t,a)}</span></label>`).join('')}</div>
+    ${real?'':'<p class="help" style="font-size:12.5px">No changes recognised. It will be posted as a comment. Use branch and people names as written in Setup.</p>'}`}
+
+/* ---------- speak a task (quick add) ---------- */
+let QA=null;
+function qaDefaults(){return {branch:F.branch||(cfg.branches[0]||{}).id||'',owner:F.owner||(cfg.people[0]||{}).id||'',priority:(cfg.priorities[Math.min(2,cfg.priorities.length-1)]||{}).id||''}}
+function qaDraft(){const r=parseQuick(QA.text),df=qaDefaults(),maxN=Math.max(0,...[...tasks.values()].map(t=>t.num||0));
+  return {id:uid('t'),num:maxN+1,title:r.title,notes:r.notes,branch:r.branch||df.branch,owner:r.owner||df.owner,status:(cfg.statuses[0]||{}).id||'',priority:r.priority||df.priority,due:r.due,progress:0,
+    contrib:r.contrib.map(c=>({id:uid('k'),branch:c.branch,person:c.person,status:'pending',progress:0,due:'',remark:'',addedAt:Date.now()})),comments:[],createdAt:Date.now(),updatedAt:Date.now()}}
+function qaPrevHTML(){const r=parseQuick(QA.text),df=qaDefaults();
+  const row=(k,v,d)=>`<div class="pv-row"><span class="k">${k}</span><span class="v ${v?'':'none'}">${v?esc(v):(d?esc(d)+' <span class="tagd">(default)</span>':'—')}</span></div>`;
+  return `<div class="pv">${row('Task',r.title)}${row('Lead branch',r.branch&&nameOf('branches',r.branch,''),nameOf('branches',df.branch,''))}${row('Lead',r.owner&&nameOf('people',r.owner,''),nameOf('people',df.owner,''))}
+    ${row('Inputs from',r.contrib.map(cName).join(', '))}${row('Due',r.due&&fmtDate(r.due))}${row('Priority',r.priority&&nameOf('priorities',r.priority,''),nameOf('priorities',df.priority,''))}${row('Details',r.notes)}</div>`}
+function openQA(){QA={text:''};drawQA();setTimeout(()=>{const x=$('#qa-txt');x&&x.focus()},60)}
+function closeQA(){QA=null;$('#qa-root').innerHTML='';if(!sheet)document.body.style.overflow=''}
+function drawQA(){document.body.style.overflow='hidden';
+  $('#qa-root').innerHTML=`<div class="sheet-wrap qa" id="qa-wrap"><div class="sheet" role="dialog" aria-modal="true" aria-label="Speak a task">
+    <div class="sheet-h"><button class="btn small" type="button" id="qa-close">Cancel</button><span class="tid">Speak a task</span><button class="btn small primary" type="button" id="qa-add">Add task</button></div>
+    <div class="sheet-b">
+      <p class="hint">Tap the microphone on your keyboard and say the whole task in one go, for example: “Compile training returns, lead Head Office, inputs from Finance and Logistics, due 15 October, urgent.”</p>
+      <textarea class="in" id="qa-txt" placeholder="Speak or type the task" style="min-height:110px">${esc(QA.text)}</textarea>
+      <div id="qa-prev">${qaPrevHTML()}</div>
+      <div class="steps"><button class="btn" type="button" id="qa-edit">Edit before adding</button></div>
+      <p class="help" style="font-size:12.5px">Names are matched to the branches, people and priorities in Setup. The words are interpreted on this phone.</p>
+    </div></div></div>`}
 function drawSheet(){
+  if(sheet&&sheet.isNew&&$('#s-title')){sheet.draft.title=$('#s-title').value;sheet.draft.notes=$('#s-notes').value}
   const keepCmt=$('#s-cmt')?$('#s-cmt').value:'';
   const t=sheet.draft;document.body.style.overflow='hidden';
   const cm=(t.comments||[]).slice().sort((a,b)=>b.at-a.at);
@@ -484,20 +697,23 @@ function drawSheet(){
     <div class="sheet-b">
       <div class="field"><label for="s-title">Task</label><input class="in title" id="s-title" type="text" value="${esc(t.title)}" placeholder="What needs doing?" maxlength="160"></div>
       <div class="grid2">
-        <div class="field"><label for="s-branch">Branch</label><select class="in" id="s-branch">${sel('branches',t.branch,'— None —')}</select></div>
-        <div class="field"><label for="s-owner">Responsible</label><select class="in" id="s-owner">${sel('people',t.owner,'— Unassigned —')}</select></div>
+        <div class="field"><label for="s-branch">Lead branch</label><select class="in" id="s-branch">${sel('branches',t.branch,'— None —')}</select></div>
+        <div class="field"><label for="s-owner">Lead (responsible)</label><select class="in" id="s-owner">${sel('people',t.owner,'— Unassigned —')}</select></div>
         <div class="field"><label for="s-status">Status</label><select class="in" id="s-status">${sel('statuses',t.status,'— None —')}</select></div>
         <div class="field"><label for="s-priority">Priority</label><select class="in" id="s-priority">${sel('priorities',t.priority,'— None —')}</select></div>
       </div>
+      ${inputsHTML(t)}
       <div class="field"><label for="s-due">Due date</label><input class="in" id="s-due" type="date" value="${esc(t.due)}"></div>
-      <div class="field"><span class="label">Progress</span>
+      ${cActive(t).length?`<div class="field"><span class="label">Progress</span><div class="calc"><span class="bar"><i style="width:${isDone(t)?100:(+t.progress||0)}%;background:var(--accent)"></i></span><span class="pct">${isDone(t)?100:(+t.progress||0)}%</span></div><p class="help" style="font-size:12.5px">Worked out from the ${cActive(t).length} inputs above. Received and nil returns count as 100%.</p></div>`
+      :`<div class="field"><span class="label">Progress</span>
         <div class="slider-row"><input type="range" id="s-prog" min="0" max="100" step="5" value="${+t.progress||0}" aria-label="Progress percent"><span class="pct" id="s-pct">${+t.progress||0}%</span></div>
-        <div class="steps">${[0,25,50,75,100].map(v=>`<button class="btn small" type="button" data-pset="${v}">${v}%</button>`).join('')}</div></div>
+        <div class="steps">${[0,25,50,75,100].map(v=>`<button class="btn small" type="button" data-pset="${v}">${v}%</button>`).join('')}</div></div>`}
       <div class="field"><label for="s-notes">Details</label><textarea class="in" id="s-notes" placeholder="Context, links, next steps">${esc(t.notes)}</textarea></div>
-      ${sheet.isNew?'':`<div class="field"><span class="label">Comments &amp; history</span>
+      ${sheet.isNew?'':`${speakHTML(t)}<div class="field"><span class="label">Comments &amp; history</span>
         ${(sheet.pending||[]).length?`<div class="thumbs">${sheet.pending.map(p=>`<div class="pend"><img class="thumb" src="${p.data}" alt="Photo to attach"><button class="x" type="button" data-unpend="${p.id}" aria-label="Remove photo">×</button></div>`).join('')}</div>`:''}
         <div class="add-cmt"><label class="btn photo-btn" for="s-photo" aria-label="Add photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></label><input type="file" id="s-photo" accept="image/*" multiple hidden><textarea class="in" id="s-cmt" placeholder="Add an update"></textarea><button class="btn primary" type="button" id="s-post">Post</button></div>
-        <div class="comments">${cm.length?cm.map(c=>`<div class="cmt ${c.kind==='log'?'log':''}"><div class="cmt-h"><span class="mono">${fmtStamp(c.at)}</span>${c.kind==='log'?'':`<button class="cmt-x" type="button" data-cdel="${c.id}">Delete</button>`}</div>${c.text?`<div class="cmt-t">${esc(c.text)}</div>`:''}${(c.images||[]).length?`<div class="thumbs">${c.images.map(id=>`<button class="thumb" type="button" data-view="${id}" aria-label="View photo"><img data-img="${id}" alt="Photo" style="width:100%;height:100%;object-fit:cover;border-radius:7px;display:block"></button>`).join('')}</div>`:''}</div>`).join(''):'<p class="help">No comments yet. Updates to status, owner, progress and due date are logged here automatically.</p>'}</div></div>
+        ${contribs(t).length?`<select class="in" id="s-about" aria-label="Update is about" style="padding:8px 10px"><option value="">About: the task in general</option>${contribs(t).map(c=>`<option value="${c.id}" ${sheet.about===c.id?'selected':''}>Input from ${esc(cName(c))}</option>`).join('')}</select>`:''}
+        <div class="comments">${cm.length?cm.map(c=>`<div class="cmt ${c.kind==='log'?'log':''}"><div class="cmt-h"><span class="mono">${fmtStamp(c.at)}</span>${c.kind==='log'?'':`<button class="cmt-x" type="button" data-cdel="${c.id}">Delete</button>`}</div>${c.about?`<div class="ctag">Input from ${esc((contribs(t).find(x=>x.id===c.about)&&cName(contribs(t).find(x=>x.id===c.about)))||c.aboutName||'contributor')}</div>`:''}${c.text?`<div class="cmt-t">${esc(c.text)}</div>`:''}${(c.images||[]).length?`<div class="thumbs">${c.images.map(id=>`<button class="thumb" type="button" data-view="${id}" aria-label="View photo"><img data-img="${id}" alt="Photo" style="width:100%;height:100%;object-fit:cover;border-radius:7px;display:block"></button>`).join('')}</div>`:''}</div>`).join(''):'<p class="help">No comments yet. Updates to status, owner, progress and due date are logged here automatically.</p>'}</div></div>
         ${t.due&&!isDone(t)?`<div class="field"><button class="btn" type="button" id="cal-one">Add daily reminders to Calendar</button><p class="help" style="font-size:12.5px">Alerts every day at ${esc((cfg.remind||{}).time||'09:00')} from ${rdays()} days before ${fmtDate(t.due)}.</p></div>`:''}
         <div class="field"><span class="label">Share this task</span>
           <div class="steps"><button class="btn small" type="button" id="sh-task">Send task file</button><button class="btn small" type="button" id="sh-pdf">Create PDF report</button></div>
@@ -505,28 +721,30 @@ function drawSheet(){
           <p class="help" style="font-size:12.5px">A task file opens in anyone's Task Ledger via Setup → Open backup or shared task. The PDF lists every update in date order, with photos.</p></div>
         <div class="field">${sheet.confirmDel?`<div class="confirm">Delete ${tidOf(t)} and its comments? This can’t be undone. <button class="btn small danger fill" type="button" id="s-delyes">Delete task</button><button class="btn small" type="button" id="s-delno">Keep</button></div>`:`<button class="btn danger" type="button" id="s-del">Delete task</button>`}</div>
         <p class="help mono" style="font-size:11.5px">Created ${fmtStamp(t.createdAt)} · updated ${fmtStamp(t.updatedAt)}</p>`}
-    </div></div></div>`;
+    </div>
+    ${sheet.askClose?`<div class="ask"><div class="ask-box" role="alertdialog" aria-modal="true" aria-labelledby="ask-t"><h3 id="ask-t">All inputs received</h3><p>${inSum(t).got} of ${inSum(t).n} inputs are in for ${tidOf(t)}. Close the task now, or keep it open for further action?</p><div class="steps"><button class="btn primary" type="button" id="ask-close">Close task</button><button class="btn" type="button" id="ask-cont">Continue task</button></div></div></div>`:''}
+    </div></div>`;
   if(keepCmt&&$('#s-cmt'))$('#s-cmt').value=keepCmt;hydrateImgs($('#sheet-root'));
 }
 function logEntry(t,text){t.comments=t.comments||[];t.comments.push({id:uid('c'),text,at:Date.now(),kind:'log'});if(t.comments.length>300)t.comments=t.comments.slice(-300)}
 function nameOf(list,id,none){const x=find(list,id);return x?x.name:none}
 let savedTimer;
 function flashSaved(){const s=$('#s-saved');if(!s)return;s.classList.add('show');clearTimeout(savedTimer);savedTimer=setTimeout(()=>s&&s.classList.remove('show'),1200)}
-function applyField(field,val){
-  const t=sheet.draft, old=t[field];if(old===val)return;
+function fieldCore(t,field,val,log){
+  const old=t[field];if(old===val)return false;
   const wasDone=isDone(t);
   t[field]=val;
   if(field==='status'){const s=find('statuses',val);if(s&&s.done&&(+t.progress||0)<100){t.progress=100}}
   if(field==='progress'&&val===100){const ds=cfg.statuses.find(s=>s.done);if(ds&&!isDone(t)){t.status=ds.id}}
-  if(!wasDone&&isDone(t))t.completedAt=Date.now();else if(wasDone&&!isDone(t))delete t.completedAt;
-  sheet.shareReady=null;
-  if(!sheet.isNew){
-    const L={status:['Status',()=>nameOf('statuses',old,'none')+' → '+nameOf('statuses',val,'none')],owner:['Responsible',()=>nameOf('people',old,'unassigned')+' → '+nameOf('people',val,'unassigned')],
+  if(!wasDone&&isDone(t))t.completedAt=Date.now();else if(wasDone&&!isDone(t)){delete t.completedAt;syncProg(t)}
+  if(log){const L={status:['Status',()=>nameOf('statuses',old,'none')+' → '+nameOf('statuses',val,'none')],owner:['Responsible',()=>nameOf('people',old,'unassigned')+' → '+nameOf('people',val,'unassigned')],
       branch:['Branch',()=>nameOf('branches',old,'none')+' → '+nameOf('branches',val,'none')],progress:['Progress',()=>(+old||0)+'% → '+val+'%'],due:['Due date',()=>(old?fmtDate(old):'none')+' → '+(val?fmtDate(val):'none')],priority:['Priority',()=>nameOf('priorities',old,'none')+' → '+nameOf('priorities',val,'none')]}[field];
-    if(L)logEntry(t,L[0]+': '+L[1]());
-    saveTask(clone(t)).then(flashSaved);
-    const sc=$('.sheet-b').scrollTop;drawSheet();$('.sheet-b').scrollTop=sc;
-  }
+    if(L)logEntry(t,L[0]+': '+L[1]())}
+  return true}
+function applyField(field,val){
+  const t=sheet.draft;if(!fieldCore(t,field,val,!sheet.isNew))return;
+  sheet.shareReady=null;
+  if(!sheet.isNew){saveTask(clone(t)).then(flashSaved);const sc=$('.sheet-b').scrollTop;drawSheet();$('.sheet-b').scrollTop=sc}
 }
 
 /* ---------- photos (IndexedDB) ---------- */
@@ -554,15 +772,16 @@ async function restore(txt){let d;try{d=JSON.parse(txt);if(!d||(!Array.isArray(d
 /* ---------- share a task ---------- */
 const LIST_FIELDS=[['branches','branch'],['people','owner'],['statuses','status'],['priorities','priority']];
 function slug(s){return String(s||'task').replace(/[^A-Za-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40)||'task'}
-async function taskShareFile(t){const lists={};LIST_FIELDS.forEach(([k,f])=>{const x=find(k,t[f]);lists[k]=x?[x]:[]});
+async function taskShareFile(t){const lists={};LIST_FIELDS.forEach(([k,f])=>{const ids=new Set([t[f]]);if(k==='branches')contribs(t).forEach(c=>ids.add(c.branch));if(k==='people')contribs(t).forEach(c=>ids.add(c.person));lists[k]=[...ids].map(id=>find(k,id)).filter(Boolean)});
   const images={};for(const id of taskImgIds(t)){try{const v=await imgGet(id);if(v)images[id]=v}catch(e){}}
   const txt=JSON.stringify({kind:'task',version:1,from:cfg.appName,sharedAt:Date.now(),task:t,lists,images});
   return new File([txt],tidOf(t)+'-'+slug(t.title)+'.json',{type:'application/json'})}
 function importTask(d){const map={};
   LIST_FIELDS.forEach(([k])=>{(d.lists&&d.lists[k]||[]).forEach(x=>{if(!x||!x.id)return;
-    const same=cfg[k].find(y=>y.id===x.id)||cfg[k].find(y=>y.name.trim().toLowerCase()===String(x.name).trim().toLowerCase());
-    if(same)map[x.id]=same.id;else{cfg[k].push(clone(x));map[x.id]=x.id}})});
+    const same=cfg[k].find(y=>y.name.trim().toLowerCase()===String(x.name).trim().toLowerCase());
+    if(same)map[x.id]=same.id;else{const n=clone(x);if(cfg[k].some(y=>y.id===n.id))n.id=uid(k[0]);cfg[k].push(n);map[x.id]=n.id}})});
   const t=clone(d.task);LIST_FIELDS.forEach(([k,f])=>{if(t[f]&&map[t[f]])t[f]=map[t[f]]});
+  contribs(t).forEach(c=>{if(c.branch&&map[c.branch])c.branch=map[c.branch];if(c.person&&map[c.person])c.person=map[c.person]});
   const ex=tasks.get(t.id);t.num=ex?ex.num:Math.max(0,...[...tasks.values()].map(x=>x.num||0))+1;
   t.comments=t.comments||[];t.comments.push({id:uid('c'),text:(ex?'Updated':'Received')+' from a shared file'+(d.from?' ('+d.from+')':''),at:Date.now(),kind:'log'});
   tasks.set(t.id,t);return t}
@@ -596,12 +815,23 @@ async function buildTaskPDF(t){
   txt(M,y-14,tidOf(t),11,'F3',ACC);y-=16;
   para(t.title||'Untitled task',M,CW,19,'F2',INK,24);y-=8;hline(y,LINE);y-=6;
   const cell=(x,label,val,c)=>{txt(x,y-10,label.toUpperCase(),7.5,'F2',MUTE);txt(x,y-24,val||'—',10.5,'F1',c||INK)};
-  const rows=[['Branch',b?b.name:'—','Responsible',p?p.name:'Unassigned'],['Status',st?st.name:'—','Priority',pr?pr.name:'—'],
-    ['Due date',t.due?fmtDate(t.due)+(!dn&&dd<0?'  ('+(-dd)+' days overdue)':''):'Not set','Progress',prog+'%'],
+  const rows=[['Lead branch',b?b.name:'—','Lead (responsible)',p?p.name:'Unassigned'],['Status',st?st.name:'—','Priority',pr?pr.name:'—'],
+    ['Due date',t.due?fmtDate(t.due)+(!dn&&dd<0?'  ('+(-dd)+' days overdue)':''):'Not set','Progress',prog+'%'+(cActive(t).length&&!dn?'  (from inputs)':'')],
     ['Created',fmtStamp(t.createdAt),'Last updated',fmtStamp(t.updatedAt)]];
   rows.forEach(r=>{ensure(34);cell(M,r[0],r[1],r[0]==='Due date'&&!dn&&dd<0?RED:INK);cell(M+CW/2,r[2],r[3]);
-    if(r[2]==='Progress'){rect(M+CW/2+40,y-26,120,6,SOFT);rect(M+CW/2+40,y-26,120*prog/100,6,ACC)}y-=34});
+    if(r[2]==='Progress'){const bx=M+CW/2+Math.max(40,textW(r[3],10.5,'F1')+12),bw=Math.min(120,PW-M-bx);rect(bx,y-21,bw,6,SOFT);rect(bx,y-21,bw*prog/100,6,ACC)}y-=34});
   if(t.notes&&t.notes.trim()){y-=6;ensure(30);txt(M,y-10,'DETAILS',7.5,'F2',MUTE);y-=14;para(t.notes,M,CW,10.5,'F1',INK,15)}
+  if(contribs(t).length){const S=inSum(t);y-=10;ensure(60);txt(M,y-10,('Inputs required · '+S.got+' of '+S.n+' received'+(S.late?' · '+S.late+' overdue':'')).toUpperCase(),7.5,'F2',MUTE);y-=18;
+    const IC=[['Branch / person',168],['Status',78],['Due',58],['Received',62],['Remarks',133.28]];
+    const ihead=()=>{rect(M,y-16,CW,16,SOFT);let x=M;IC.forEach(([k,w])=>{txt(x+4,y-11,k.toUpperCase(),7,'F2',MUTE);x+=w});y-=16};ihead();
+    for(const c of contribs(t)){const late=cLate(c,t),due=cDue(c,t);const nl=wrapText(cName(c),IC[0][1]-8,9,'F1'),rl=wrapText(c.remark||'',IC[4][1]-8,9,'F1');
+      const h=Math.max(nl.length,rl.length||1)*11+8;if(ensure(h))ihead();const top=y-11;let x=M;
+      nl.forEach((l,i)=>txt(x+4,top-i*11,l,9,'F1',INK));x+=IC[0][1];
+      txt(x+4,top,late?'Overdue '+late+'d':cst(c.status)[1],9,'F2',late?RED:cIn(c)?[31,138,91]:c.status==='na'?MUTE:INK);x+=IC[1][1];
+      txt(x+4,top,due?fmtDate(due):'–',9,'F1',INK);x+=IC[2][1];
+      txt(x+4,top,c.inAt?fmtDate(isoOf(c.inAt)):'–',9,'F1',INK);x+=IC[3][1];
+      rl.forEach((l,i)=>txt(x+4,top-i*11,l,9,'F1',INK));
+      y-=h;hline(y,LINE)}}
   y-=14;ensure(40);hline(y,LINE);y-=18;txt(M,y,'Timeline',14,'F2',INK);txt(M+70,y,'oldest first',9,'F1',MUTE);y-=10;
   const list=(t.comments||[]).slice().sort((a,b)=>a.at-b.at);
   if(!list.length){y-=16;txt(M,y,'No updates recorded yet.',10,'F1',MUTE)}
@@ -609,6 +839,7 @@ async function buildTaskPDF(t){
   for(const c of list){const isLog=c.kind==='log';ensure(34);y-=8;
     const top=y;txt(M,y-11,fmtStamp(c.at)+(new Date(c.at).getFullYear()!==new Date().getFullYear()?' '+new Date(c.at).getFullYear():''),8.5,'F3',MUTE);
     txt(M,y-23,isLog?'Change':'Update',7.5,'F2',isLog?MUTE:ACC);y-=2;
+    if(c.about){const ab=contribs(t).find(x=>x.id===c.about);para('Input from '+(ab?cName(ab):(c.aboutName||'contributor')),TX,TW,8.5,'F2',ACC,12)}
     if(c.text)para(c.text,TX,TW,isLog?9.5:10.5,isLog?'F1':'F1',isLog?MUTE:INK,isLog?13:15);
     for(const id of (c.images||[])){let data=null;try{data=await imgGet(id)}catch(e){}if(!data||!/^data:image\/jpeg/.test(data))continue;
       const sz=await imgSize(data);if(!sz)continue;let w=Math.min(TW,240),h=w*sz.h/sz.w;if(h>220){h=220;w=h*sz.w/sz.h}
@@ -643,7 +874,7 @@ function doneList(){const [a,b]=periodRange(D.period);
   return [...tasks.values()].filter(t=>isDone(t)).filter(t=>{const d=doneAt(t);return (!a||d>=a.getTime())&&(!b||d<b.getTime())})
     .filter(t=>!D.branch||(D.branch==='__none'?!find('branches',t.branch):t.branch===D.branch))
     .filter(t=>{if(!D.q)return true;const q=D.q.toLowerCase();const p=find('people',t.owner);
-      return (t.title+' '+(t.notes||'')+' '+tidOf(t)+' '+(p?p.name:'')+' '+(t.comments||[]).filter(c=>c.kind!=='log').map(c=>c.text).join(' ')).toLowerCase().includes(q)})}
+      return (t.title+' '+(t.notes||'')+' '+tidOf(t)+' '+(p?p.name:'')+' '+cNames(t)+' '+(t.comments||[]).filter(c=>c.kind!=='log').map(c=>c.text).join(' ')).toLowerCase().includes(q)})}
 function doneGroups(list){const gs=cfg.branches.map(b=>({b,ts:list.filter(t=>t.branch===b.id)}));
   gs.push({b:{id:'__none',name:'No branch',color:'c1'},ts:list.filter(t=>!find('branches',t.branch))});
   return gs.filter(g=>g.ts.length).map(g=>({b:g.b,ts:g.ts.sort((x,y)=>doneAt(y)-doneAt(x))}))}
@@ -733,11 +964,192 @@ function buildDonePDF(){
   const tag=(D.branch?slug(bname)+'-':'')+slug(periodLabel(D.period))+(D.q?'-'+slug(D.q):'');
   return new File([pdfAssemble(pages,[],PW,PH)],'completed-tasks-'+tag+'.pdf',{type:'application/pdf'})}
 
+/* ---------- speak a task / speak an update (parsed on the phone) ---------- */
+const DEVA_DIG='०१२३४५६७८९';
+function normTxt(s){return String(s||'').replace(/[०-९]/g,d=>String(DEVA_DIG.indexOf(d))).replace(/[“”]/g,'"').replace(/[‘’]/g,"'").replace(/\s+/g,' ').trim()}
+const WCH=/[\p{L}\p{N}\p{M}]/u;
+function isW(ch){return !!ch&&WCH.test(ch)}
+function findWord(L,w){const out=[];if(!w)return out;let i=L.indexOf(w);while(i>=0){if(!isW(L[i-1])&&!isW(L[i+w.length]))out.push(i);i=L.indexOf(w,i+1)}return out}
+function bestHits(hits){hits.sort((a,b)=>a.i-b.i||(b.e-b.i)-(a.e-a.i));const out=[];let end=-1;hits.forEach(h=>{if(h.i>=end){out.push(h);end=h.e}});return out}
+const RANKS=new Set('maj major capt captain col colonel lt lieutenant ltcol sub subedar hav havildar nk naik sep sepoy mr mrs ms miss dr sir sgt cpl gen brig brigadier nb naib shri smt jco offr officer'.split(' '));
+const GENERIC=new Set('office branch section cell wing department dept team unit head main the and of for'.split(' '));
+function aliases(kind){
+  const items=cfg[kind]||[];const tok=x=>String(x.name).toLowerCase().split(/[^\p{L}\p{N}\p{M}]+/u).filter(Boolean);
+  const count={};items.forEach(x=>new Set(tok(x)).forEach(w=>{count[w]=(count[w]||0)+1}));
+  const out=[];items.forEach(x=>{const full=String(x.name).toLowerCase().trim();if(!full)return;out.push({id:x.id,a:full});
+    full.split(/\s*[\/(),]\s*/).map(s=>s.trim()).filter(s=>s&&s!==full&&s.length>=2).forEach(a=>out.push({id:x.id,a}));
+    tok(x).forEach(w=>{if(w.length>=3&&count[w]===1&&!RANKS.has(w)&&!GENERIC.has(w)&&w!==full)out.push({id:x.id,a:w})})});
+  return out}
+function findEntities(L){const hits=[];
+  [['branches','b'],['people','p']].forEach(([k,ty])=>aliases(k).forEach(({id,a})=>findWord(L,a).forEach(i=>hits.push({ty,id,i,e:i+a.length}))));
+  return bestHits(hits)}
+const MON_RX='(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sept|sep|oct|nov|dec|जनवरी|फरवरी|फ़रवरी|मार्च|अप्रैल|मई|जून|जुलाई|अगस्त|सितंबर|सितम्बर|अक्टूबर|अक्तूबर|नवंबर|नवम्बर|दिसंबर|दिसम्बर)';
+const MON_HI=['जनवरी','फरवरी','मार्च','अप्रैल','मई','जून','जुलाई','अगस्त','सितंबर','अक्टूबर','नवंबर','दिसंबर'];
+function monIdx(s){s=s.replace('फ़','फ').replace('सितम्बर','सितंबर').replace('अक्तूबर','अक्टूबर').replace('नवम्बर','नवंबर').replace('दिसम्बर','दिसंबर');const h=MON_HI.indexOf(s);if(h>=0)return h;return ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'].indexOf(s.slice(0,3))}
+const NUMW={one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10,a:1,an:1,'a couple of':2,ek:1,do:2,teen:3,char:4,chaar:4,paanch:5,panch:5,'एक':1,'दो':2,'तीन':3,'चार':4,'पांच':5,'पाँच':5};
+const DAYS_EN=['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+const DAYS_HI={ravivar:0,somvar:1,mangalvar:2,budhvar:3,guruvar:4,shukravar:5,shanivar:6,'रविवार':0,'सोमवार':1,'मंगलवार':2,'बुधवार':3,'गुरुवार':4,'शुक्रवार':5,'शनिवार':6};
+function dayStart(){const d=new Date();d.setHours(0,0,0,0);return d}
+function addDays(n){const d=dayStart();d.setDate(d.getDate()+n);return d}
+function mkDate(day,mon,yr){const base=dayStart();if(mon<0||mon>11||day<1||day>31)return null;let y=yr?(String(yr).length===2?2000+(+yr):+yr):base.getFullYear();
+  let d=new Date(y,mon,day);if(d.getMonth()!==mon)return null;if(!yr&&d<base)d=new Date(y+1,mon,day);return d}
+function findDates(L){
+  const res=[];const add=(i,len,d)=>{if(d&&!isNaN(d))res.push({iso:isoOf(d.getTime()),i,e:i+len})};
+  const rx=(src,fn)=>{const r=new RegExp(src,'giu');let m;while((m=r.exec(L))){const i=m.index,e=i+m[0].length;if(!isW(L[i-1])&&!isW(L[e]))add(i,m[0].length,fn(m));if(r.lastIndex===m.index)r.lastIndex++}};
+  rx('day after tomorrow|parson|परसों',()=>addDays(2));
+  rx('tomorrow|kal|कल',()=>addDays(1));
+  rx('today|tonight|aaj|आज',()=>addDays(0));
+  rx('in (\\d+|one|two|three|four|five|six|seven|eight|nine|ten|a couple of|a|an) (days?|weeks?|months?)',m=>{const n=/\d/.test(m[1])?+m[1]:(NUMW[m[1]]||1);if(m[2][0]==='w')return addDays(7*n);if(m[2][0]==='m'){const d=dayStart();d.setMonth(d.getMonth()+n);return d}return addDays(n)});
+  rx('(\\d+|ek|do|teen|chaar|char|paanch|panch|एक|दो|तीन|चार|पांच|पाँच) (din|दिन|hafte|हफ्ते|हफ़्ते)( (mein|me|में))?',m=>{const n=/\d/.test(m[1])?+m[1]:NUMW[m[1]];return /hafte|हफ/.test(m[2])?addDays(7*n):addDays(n)});
+  rx('next week|agle hafte|अगले हफ्ते',()=>addDays(7));
+  rx('next month|agle mahine|अगले महीने',()=>{const d=dayStart();d.setMonth(d.getMonth()+1);return d});
+  rx('end of (the )?week',()=>{const d=dayStart();d.setDate(d.getDate()+((5-d.getDay()+7)%7||7));return d});
+  rx('end of (the )?month',()=>{const b=dayStart();return new Date(b.getFullYear(),b.getMonth()+1,0)});
+  rx('((next|this|coming) )?(sunday|monday|tuesday|wednesday|thursday|friday|saturday)',m=>{const k=DAYS_EN.indexOf(m[3]),td=dayStart().getDay();let diff=(k-td+7)%7||7;
+    if(m[2]==='next'){const wkLeft=td===0?0:7-td;if(diff<=wkLeft)diff+=7}return addDays(diff)});
+  rx('(\\d{1,2})(st|nd|rd|th)? (tarikh|tareekh|tareek|तारीख|तारीख़)',m=>{const b=dayStart();let d=mkDate(+m[1],b.getMonth(),b.getFullYear());if(d&&d<b)d=mkDate(+m[1],(b.getMonth()+1)%12,b.getMonth()===11?b.getFullYear()+1:b.getFullYear());return d});
+  rx(Object.keys(DAYS_HI).join('|'),m=>addDays((DAYS_HI[m[0]]-dayStart().getDay()+7)%7||7));
+  rx('(\\d{1,2})(st|nd|rd|th)?( of)? '+MON_RX+'(,? (\\d{4}))?',m=>mkDate(+m[1],monIdx(m[4]),m[6]));
+  rx(MON_RX+' (\\d{1,2})(st|nd|rd|th)?(,? (\\d{4}))?',m=>mkDate(+m[2],monIdx(m[1]),m[5]));
+  rx('(\\d{1,2})[\\/.-](\\d{1,2})([\\/.-](\\d{2,4}))?',m=>mkDate(+m[1],+m[2]-1,m[4]));
+  return bestHits(res)}
+const DUE_BEFORE=/(due date is|due date|due on|due by|due|by|before|till|until|deadline is|deadline|target date is|target date|target|latest by|extend(?:ed)? (?:it |the due date |due date |the deadline |deadline )?(?:to|till|until)|extend(?:ed)?|postpone(?:d)? (?:it )?(?:to|till)|push(?:ed)? (?:it )?(?:to|till)|reschedule(?:d)? (?:it )?(?:to|for)|new (?:due )?date is|new (?:due )?date|on)\s*[:,-]?\s*$/;
+const DUE_AFTER=/^\s*(tak|तक|se pehle|से पहले)(?![\p{L}\p{M}])/u;
+function dueContext(L,d){const pre=L.slice(Math.max(0,d.i-40),d.i);const m=pre.match(DUE_BEFORE);const a=L.slice(d.e).match(DUE_AFTER);
+  return {s:m?d.i-m[0].length:d.i,e:a?d.e+a[0].length:d.e,kw:!!(m&&m[1]!=='on')||!!a}}
+function findPriority(L){
+  const pr=cfg.priorities||[];if(!pr.length)return null;const by=n=>pr.find(p=>p.name.toLowerCase()===n);
+  for(const p of pr){const n=p.name.toLowerCase();for(const ph of [n+' priority','priority '+n,'priority is '+n,'priority: '+n,'priority to '+n]){const i=findWord(L,ph)[0];if(i!==undefined)return {id:p.id,i,e:i+ph.length}}}
+  for(const w of ['top priority','urgent','urgently','immediate','immediately','asap','zaroori','jaruri','zaruri','turant','तुरंत','ज़रूरी','जरूरी','अर्जेंट']){const i=findWord(L,w)[0];if(i!==undefined){const p=by('urgent')||by('immediate')||pr[0];return {id:p.id,i,e:i+w.length}}}
+  for(const p of pr){const n=p.name.toLowerCase();if(['high','low','normal','medium','routine'].includes(n))continue;const i=findWord(L,n)[0];if(i!==undefined)return {id:p.id,i,e:i+n.length}}
+  return null}
+const KW={
+  lead:['lead branch is','lead branch','lead is','lead','assign to','assigned to','assign it to','responsible is','responsible','owner is','owner','opr is','opr','handled by','zimmedari','ज़िम्मेदारी','जिम्मेदारी'],
+  inputs:['inputs required from','input required from','inputs needed from','input needed from','need inputs from','need input from','inputs from','input from','contributions from','contribution from','contributors are','contributors','contributor','also involve','involve','copy to','se input','से इनपुट'],
+  details:['details are','details','detail','notes','note','remarks','vivaran','विवरण']};
+function kwHits(L){const hits=[];Object.entries(KW).forEach(([k,ws])=>ws.forEach(w=>findWord(L,w).forEach(i=>hits.push({k,i,e:i+w.length}))));return bestHits(hits)}
+const PAIR_GAP=/^\s*(?:[-–—:]|'s|of|from|ka|ki|के|का|की)?\s*(?:(?:maj|major|capt|captain|col|lt|sub|hav|nk|sep|mr|mrs|ms|dr|sgt|cpl|shri|smt)\.?\s*)*$/;
+const EDGE_WORDS=/^(and|to|for|from|by|with|the|of|is|a|an|then|also|aur|ko|ke|ka|ki)$/;
+function cleanTitle(s){let w=s.replace(/\s+/g,' ').trim().replace(/^[,.;:\-–—\s]+|[,.;:\-–—\s]+$/g,'').split(' ');
+  while(w.length&&EDGE_WORDS.test(w[0].toLowerCase()))w.shift();while(w.length&&EDGE_WORDS.test(w[w.length-1].toLowerCase()))w.pop();
+  const t=w.join(' ').replace(/[,.;:\s]+$/,'');return t?t[0].toUpperCase()+t.slice(1):''}
+
+function parseQuick(raw){
+  const text=normTxt(raw),L=text.toLowerCase();const used=new Uint8Array(text.length);const mark=(i,e)=>{for(let k=Math.max(0,i);k<Math.min(e,text.length);k++)used[k]=1};
+  const r={title:'',notes:'',branch:'',owner:'',contrib:[],due:'',priority:''};if(!text)return r;
+  const lead0=L.match(/^(please )?((create|add|make|log|open|record)( a| an)?( new)? (task|entry)( to| for| called| named| about)?|new task( to| for)?|task( to| for)?)\s*[:,-]?\s*/);
+  const st0=lead0?lead0[0].length:0;mark(0,st0);
+  let hits=kwHits(L).filter(h=>h.i>=st0);
+  const sepBefore=i=>/[,.;:]\s*$/.test(L.slice(0,i))||/\s(and|aur)\s*$/.test(L.slice(0,i));
+  const det=hits.find(h=>h.k==='details'&&h.i>st0&&sepBefore(h.i));let lim=text.length;
+  if(det){r.notes=text.slice(det.e).replace(/^\s*(is|are|:|-)\s*/i,'').trim();lim=det.i;mark(det.i,text.length)}
+  const Lc=L.slice(0,lim);const entsAll=findEntities(Lc);
+  hits=hits.filter(h=>h.k!=='details'&&h.e<=lim&&(h.i===st0||sepBefore(h.i)||h.k==='inputs'||entsAll.some(m=>m.i>=h.e&&m.i<=h.e+4)));
+  const d=findDates(Lc)[0];if(d){r.due=d.iso;const c=dueContext(L,d);mark(c.s,c.e)}
+  const p=findPriority(Lc);if(p){r.priority=p.id;mark(p.i,p.e)}
+  hits.forEach(h=>mark(h.i,h.e));
+  // chunks: split at separators and keyword starts
+  const cuts=new Set([st0,lim]);for(let k=st0;k<lim;k++)if(/[,;.\n]/.test(text[k])){cuts.add(k);cuts.add(k+1)}hits.forEach(h=>cuts.add(h.i));
+  const pos=[...cuts].filter(k=>k>=st0&&k<=lim).sort((a,b)=>a-b);const chunks=[];for(let k=0;k<pos.length-1;k++)if(pos[k+1]>pos[k])chunks.push([pos[k],pos[k+1]]);
+  const POST=['se input','से इनपुट'];const postIn=[];
+  hits.filter(h=>h.k==='inputs'&&POST.includes(L.slice(h.i,h.e))).forEach(h=>{let end=h.i;const before=entsAll.filter(m=>m.e<=h.i).reverse();
+    for(const m of before){if(/^\s*(,|and|aur|और|&)?\s*$/.test(L.slice(m.e,end))){postIn.unshift(m);mark(m.i,m.e);end=m.i}else break}});
+  const ents=findEntities(Lc).filter(m=>!used.slice(m.i,m.e).some(Boolean));
+  let titleChunk=null;
+  for(const [a,b] of chunks){const inner=ents.filter(m=>m.i>=a&&m.e<=b);let s='';for(let k=a;k<b;k++){s+=used[k]||inner.some(m=>k>=m.i&&k<m.e)?' ':text[k]}
+    if(hits.some(h=>h.i===a))continue;if(cleanTitle(s).replace(/[^\p{L}\p{N}]/gu,'').length>=2){titleChunk=[a,b];break}}
+  if(titleChunk){let s='';for(let k=titleChunk[0];k<titleChunk[1];k++)s+=used[k]?' ':text[k];r.title=cleanTitle(s)}
+  const free=ents.filter(m=>!titleChunk||m.i<titleChunk[0]||m.e>titleChunk[1]);
+  const modeAt=i=>{let m='none';hits.forEach(h=>{if(h.i<i)m=h.k});return m};
+  const inp=[];
+  for(let k=0;k<free.length;k++){const m=free[k],mode=modeAt(m.i);
+    if(mode==='lead'||(mode==='none'&&((m.ty==='b'&&!r.branch)||(m.ty==='p'&&!r.owner)))){if(m.ty==='b'&&!r.branch){r.branch=m.id;continue}if(m.ty==='p'&&!r.owner){r.owner=m.id;continue}}
+    const prev=inp[inp.length-1];
+    if(prev&&prev.last===k-1&&((m.ty==='p'&&!prev.person&&prev.branch)||(m.ty==='b'&&!prev.branch&&prev.person))&&PAIR_GAP.test(L.slice(free[k-1].e,m.i))){prev[m.ty==='b'?'branch':'person']=m.id;prev.last=k;continue}
+    inp.push({branch:m.ty==='b'?m.id:'',person:m.ty==='p'?m.id:'',last:k})}
+  postIn.forEach(m=>inp.push({branch:m.ty==='b'?m.id:'',person:m.ty==='p'?m.id:''}));
+  const seen=new Set();inp.forEach(c=>{const key=c.branch+'|'+c.person;if(!seen.has(key)&&!(c.branch===r.branch&&!c.person&&r.branch)){seen.add(key);r.contrib.push({branch:c.branch,person:c.person})}});
+  return r}
+
+const ST_WORDS=[
+  ['na',['not required','not needed','no longer required','no longer needed','zarurat nahi','zaroorat nahi','ज़रूरत नहीं','जरूरत नहीं']],
+  ['pending',['not received','not yet received','not yet come','not come','still awaited','awaited','pending','still waiting','waiting','chasing','reminder sent','reminded','baaki','बाकी','nahi aaya','नहीं आया','nahi mila','नहीं मिला']],
+  ['nil',['nil return','nil','nothing to report','no input','no inputs']],
+  ['received',['received','got','came in','has come','have come','submitted','sent','in hand','furnished','forwarded','done','completed','complete','mil gaya','mila','aa gaya','aagaya','aa gya','prapt','प्राप्त','मिल गया','मिला','आ गया']],
+  ['progress',['in progress','working on it','working on','working','started','under preparation','being prepared','being compiled','shuru','chalu','चालू','शुरू']]];
+function statusHits(L){const hits=[];ST_WORDS.forEach(([k,ws])=>ws.forEach(w=>findWord(L,w).forEach(i=>hits.push({k,i,e:i+w.length}))));return bestHits(hits)}
+const PCT_RX=/(\d{1,3})\s?(%|percent|per cent|pratishat|प्रतिशत)/gi;
+function pctHits(L){const out=[];let m;const r=new RegExp(PCT_RX.source,'gi');while((m=r.exec(L))){const v=+m[1];if(v<=100)out.push({v:Math.round(v/5)*5,i:m.index,e:m.index+m[0].length})}return out}
+const ALL_WORDS=['all inputs','all the inputs','all contributors','all branches','everyone','everybody','sabhi','सभी','sab'];
+const TASK_DONE=/\b(task|it|this|work|job)\b[^.]{0,30}\b(done|completed|complete|closed|finished|over)\b|\b(close|mark)\b[^.]{0,20}\b(task|it|done|complete|completed)\b|^\s*(done|completed|closed|finished|task complete|task completed|task done)\s*$|(kaam|task) (ho gaya|pura|poora|khatam)|काम (हो गया|पूरा)/;
+const REOPEN=/\b(reopen|re-open|open again|not done yet)\b/;
+const LEAD_CHG=/\b(reassign(ed)?|hand(ed)? over|transfer(red)?|new lead|lead (is )?now|now (led|handled) by|assign(ed)? (it )?to)\b/;
+const ADD_C=/\b(add|also need|need|request(ed)?|ask(ed)? for|also involve|involve|include)\b/;
+
+function parseUpdate(t,raw){
+  const text=normTxt(raw),L=text.toLowerCase(),acts=[];if(!text)return {acts,text};
+  const cs=contribs(t),active=cs.filter(c=>c.status!=='na');
+  const resolve=m=>cs.filter(c=>m.ty==='b'?c.branch===m.id:c.person===m.id);
+  const clauses=[];let s0=0;const sepRe=/[.;!?\n]+|,\s+|\s+(?:and then|then|also|aur phir)\s+/g;let mm;while((mm=sepRe.exec(text))){clauses.push([s0,mm.index]);s0=mm.index+mm[0].length}clauses.push([s0,text.length]);
+  const cst={},cpg={},cdu={};let carry=[];const mentioned=new Set();const field={};
+  for(const [a,b] of clauses){const C=L.slice(a,b);if(!C.trim())continue;
+    const ents=findEntities(C);const sts=statusHits(C),pcs=pctHits(C),dts=findDates(C);
+    let targets=[];ents.forEach(m=>{const rs=resolve(m);if(rs.length)targets.push({m,rs})});
+    const allHit=ALL_WORDS.map(w=>findWord(C,w)[0]).find(i=>i!==undefined);
+    if(allHit!==undefined&&active.length)targets.push({m:{i:allHit,e:allHit+3},rs:active});
+    // lead change
+    if(LEAD_CHG.test(C)&&ents.length){ents.forEach(m=>{if(m.ty==='b')field.branch=m.id;else field.owner=m.id});const pp=findPriority(C);if(pp)field.priority=pp.id;continue}
+    // add new contributors
+    const newEnts=ents.filter(m=>!resolve(m).length);
+    if(newEnts.length&&ADD_C.test(C)){const pend=[];newEnts.forEach((m,k)=>{const prev=pend[pend.length-1];if(prev&&((m.ty==='p'&&!prev.person)||(m.ty==='b'&&!prev.branch))&&PAIR_GAP.test(C.slice(newEnts[k-1].e,m.i))){prev[m.ty==='b'?'branch':'person']=m.id;return}pend.push({branch:m.ty==='b'?m.id:'',person:m.ty==='p'?m.id:''})});
+      pend.forEach(p=>acts.push({kind:'addc',branch:p.branch,person:p.person}))}
+    if(targets.length){
+      targets.forEach(({rs})=>rs.forEach(c=>mentioned.add(c.id)));
+      const pick=(arr,m)=>arr.find(x=>x.i>=m.e)||[...arr].reverse().find(x=>x.e<=m.i);
+      let applied=false;
+      const setFor=(c,st,pc)=>{if(pc&&pc.v<100&&st&&st.k==='received')st=null;if(st){cst[c.id]=st.k;applied=true}if(pc){cpg[c.id]=pc.v;applied=true;if(!st&&!cIn(c)&&c.status==='pending'&&pc.v>0)cst[c.id]='progress'}};
+      targets.forEach(({m,rs})=>{const st=pick(sts,m);let pc=pick(pcs,m);if(pc&&(pc.i>=m.e?pc.i-m.e:m.i-pc.e)>18)pc=null;rs.forEach(c=>setFor(c,st,pc))});
+      if(carry.length&&(sts.length||pcs.length)){carry.forEach(c=>setFor(c,sts[0],pcs[0]));targets=targets.concat(carry.map(c=>({rs:[c]})))}
+      if(dts.length){const dc=dueContext(C,dts[0]);if(dc.kw)targets.forEach(({rs})=>rs.forEach(c=>{cdu[c.id]=dts[0].iso;applied=true}))}
+      if(!applied)carry=carry.concat(targets.flatMap(x=>x.rs));else{carry.forEach(c=>mentioned.add(c.id));carry=[]}
+      continue}
+    if(carry.length&&(sts.length||pcs.length)){carry.forEach(c=>{if(sts[0])cst[c.id]=sts[0].k;if(pcs[0])cpg[c.id]=pcs[0].v});carry=[];continue}
+    // task-level
+    if(REOPEN.test(C)){const st=cfg.statuses.find(x=>!x.done&&/progress/i.test(x.name))||cfg.statuses.find(x=>!x.done);if(st)field.status=st.id}
+    else if(TASK_DONE.test(C)){const ds=cfg.statuses.find(x=>x.done);if(ds)field.status=ds.id}
+    else{for(const st of cfg.statuses){const n=st.name.toLowerCase();if(findWord(C,'status '+n).length||findWord(C,'status is '+n).length||findWord(C,'status to '+n).length||(n.includes(' ')&&findWord(C,n).length&&!(n==='in progress'&&cs.length))){field.status=st.id;break}}}
+    if(pcs.length){if(active.length)acts.push({kind:'note',text:'Task progress is worked out from inputs, so "'+text.slice(a,b).trim()+'" was not applied to the task.'});else field.progress=pcs[0].v}
+    if(dts.length){const dc=dueContext(C,dts[0]);if(dc.kw)field.due=dts[0].iso}
+    const p=findPriority(C);if(p)field.priority=p.id}
+  cs.forEach(c=>{if(cst[c.id]==='progress'&&cpg[c.id]!==undefined&&c.status==='pending')delete cst[c.id];if(cst[c.id]&&cst[c.id]!==c.status)acts.push({kind:'cst',cid:c.id,val:cst[c.id]});
+    if(cpg[c.id]!==undefined&&!cIn(c)&&!(cst[c.id]&&cst[c.id]!=='progress'&&cst[c.id]!=='pending')&&cpg[c.id]!==cProg(c))acts.push({kind:'cprog',cid:c.id,val:cpg[c.id]});
+    if(cdu[c.id]&&cdu[c.id]!==c.due)acts.push({kind:'cdue',cid:c.id,val:cdu[c.id]})});
+  ['branch','owner','priority','due','progress','status'].forEach(f=>{if(field[f]!==undefined&&field[f]!==t[f])acts.push({kind:'field',field:f,val:field[f]})});
+  const about=mentioned.size===1?[...mentioned][0]:'';
+  acts.push({kind:'comment',text,about});
+  return {acts,text}}
+
+function actLabel(t,a){const c=a.cid&&contribs(t).find(x=>x.id===a.cid);
+  if(a.kind==='cst')return `<b>${esc(cName(c))}</b> → ${esc(cst(a.val)[1])}`;
+  if(a.kind==='cprog')return `<b>${esc(cName(c))}</b> progress → ${a.val}%${c.status==='pending'&&a.val>0?' (In progress)':''}`;
+  if(a.kind==='cdue')return `<b>${esc(cName(c))}</b> own due date → ${fmtDate(a.val)}`;
+  if(a.kind==='addc')return `Add input from <b>${esc(cName(a))}</b>`;
+  if(a.kind==='note')return `<span class="muted">${esc(a.text)}</span>`;
+  if(a.kind==='comment'){const ab=a.about&&contribs(t).find(x=>x.id===a.about);return `Post as comment${ab?` (input from ${esc(cName(ab))})`:''}: <span class="muted">“${esc(a.text.length>140?a.text.slice(0,140)+'…':a.text)}”</span>`}
+  const F={branch:['Lead branch',v=>nameOf('branches',v,'none')],owner:['Lead',v=>nameOf('people',v,'unassigned')],priority:['Priority',v=>nameOf('priorities',v,'none')],due:['Task due date',v=>fmtDate(v)],progress:['Task progress',v=>v+'%'],status:['Task status',v=>nameOf('statuses',v,'none')]}[a.field];
+  return `${F[0]} → <b>${esc(F[1](a.val))}</b>`}
+
 /* ---------- events ---------- */
 document.addEventListener('click',e=>{
   const b=e.target.closest('button');if(!b)return;
   if(b.dataset.tab){go(b.dataset.tab);return}
   if(b.id==='fab'){openTask(null);return}
+  if(b.id==='qa-btn'){openQA();return}
+  if(b.id==='qa-close'){closeQA();return}
+  if(b.id==='qa-add'&&QA){const d=qaDraft();if(!d.title){toast('Say or type what the task is first.');$('#qa-txt').focus();return}
+    syncProg(d);logEntry(d,'Task created by spoken entry'+(contribs(d).length?' with '+contribs(d).length+' input'+(contribs(d).length>1?'s':'')+' required from '+contribs(d).map(cName).join(', '):''));
+    saveTask(d);closeQA();toast(tidOf(d)+' added');return}
+  if(b.id==='qa-edit'&&QA){const d=qaDraft();closeQA();sheet={id:d.id,isNew:true,draft:d};drawSheet();return}
   if(b.dataset.open){openTask(b.dataset.open);return}
   if(b.dataset.kpi==='done'){D.period='all';D.branch='';D.q='';doneShare=null;go('done');return}
   if(b.dataset.kpi){Object.assign(F,{branch:'',owner:'',status:'',priority:'',q:''});F.hideDone=b.dataset.kpi!=='done';F.sort=b.dataset.kpi==='done'?'updated':'due';
@@ -769,6 +1181,27 @@ document.addEventListener('click',e=>{
   // sheet
   if(!sheet)return;
   if(b.id==='cal-one'){addToCalendar([sheet.draft]);return}
+  if(b.id==='u-open'){sheet.uOpen=true;sheet.uText='';sheet.uOff=new Set();redrawKeep();setTimeout(()=>{const x=$('#u-txt');if(x){x.focus();x.scrollIntoView({block:'center'})}},60);return}
+  if(b.id==='u-cancel'){sheet.uOpen=false;sheet.uText='';redrawKeep();return}
+  if(b.id==='u-apply'){const txt=(sheet.uText||'').trim();if(!txt){toast('Speak or type the update first.');$('#u-txt').focus();return}
+    const off=sheet.uOff||new Set();const acts=parseUpdate(sheet.draft,txt).acts.filter((a,i)=>!off.has(i)&&a.kind!=='note');
+    const n=applyUpdate(acts);sheet.uOpen=false;sheet.uText='';sheet.uOff=null;redrawKeep();
+    toast(n?'Update applied: '+n+' change'+(n>1?'s':''):(acts.some(a=>a.kind==='comment')?'Posted as a comment':'Nothing applied'));return}
+  if(b.dataset.cedit){sheet.openC=sheet.openC===b.dataset.cedit?null:b.dataset.cedit;sheet.confirmC=null;redrawKeep();return}
+  if(b.dataset.cst){const [cid,k]=b.dataset.cst.split('|');const c=contribs(sheet.draft).find(x=>x.id===cid);if(c&&c.status!==k){const p={status:k};if(k==='progress'&&!(+c.progress))p.progress=10;cChange(cid,p)}return}
+  if(b.dataset.crm){sheet.confirmC=b.dataset.crm;redrawKeep();return}
+  if(b.hasAttribute('data-crmno')){sheet.confirmC=null;redrawKeep();return}
+  if(b.dataset.crmyes){const t=sheet.draft;const c=contribs(t).find(x=>x.id===b.dataset.crmyes);if(c){t.contrib=contribs(t).filter(x=>x.id!==c.id);syncProg(t);if(!sheet.isNew)logEntry(t,'Input removed: '+cName(c));cCommit(t,'',cName(c))}sheet.confirmC=null;sheet.openC=null;redrawKeep();return}
+  if(b.id==='c-addopen'){sheet.addC=true;redrawKeep();return}
+  if(b.id==='c-addx'){sheet.addC=false;redrawKeep();return}
+  if(b.id==='c-add'){const t=sheet.draft;const br=$('#a-br').value,pe=$('#a-pe').value,du=$('#a-due').value;
+    if(!br&&!pe){toast('Choose a branch, a person, or both.');return}
+    if(contribs(t).some(c=>(c.branch||'')===br&&(c.person||'')===pe)){toast('That input is already on the list.');return}
+    const c={id:uid('k'),branch:br,person:pe,status:'pending',progress:0,due:du,remark:'',addedAt:Date.now()};
+    t.contrib=contribs(t).concat([c]);syncProg(t);if(!sheet.isNew)logEntry(t,'Input requested from '+cName(c)+(du?' by '+fmtDate(du):''));cCommit(t,'',cName(c));
+    redrawKeep();toast('Added '+cName(c));return}
+  if(b.id==='ask-close'){sheet.askClose=false;const ds=cfg.statuses.find(x=>x.done);if(ds){applyField('status',ds.id);toast(tidOf(sheet.draft)+' closed')}else{redrawKeep();toast('Add a “done” status in Setup first.')}return}
+  if(b.id==='ask-cont'){sheet.askClose=false;const t=sheet.draft;logEntry(t,'All inputs received; task continued for further action');sheet.shareReady=null;saveTask(clone(t)).then(flashSaved);redrawKeep();return}
   if(b.id==='sh-task'||b.id==='sh-pdf'){const label=b.textContent;b.disabled=true;b.textContent='Preparing…';const t=clone(sheet.draft);
     (b.id==='sh-task'?taskShareFile(t):buildTaskPDF(t)).then(f=>{if(!sheet)return;sheet.shareReady=f;const sc=$('.sheet-b').scrollTop;drawSheet();$('.sheet-b').scrollTop=sc},
       e=>{b.disabled=false;b.textContent=label;toast('Could not create the file. Try again.')});return}
@@ -777,11 +1210,11 @@ document.addEventListener('click',e=>{
   if(b.id==='s-close'){closeSheet();return}
   if(b.id==='s-create'){const t=sheet.draft;t.title=$('#s-title').value.trim();t.notes=$('#s-notes').value;
     if(!t.title){$('#s-title').focus();toast('Give the task a name first.');return}
-    logEntry(t,'Task created');if(isDone(t))t.completedAt=Date.now();saveTask(clone(t));closeSheet();toast(tidOf(t)+' added');return}
+    syncProg(t);logEntry(t,'Task created'+(contribs(t).length?' with '+contribs(t).length+' input'+(contribs(t).length>1?'s':'')+' required from '+contribs(t).map(cName).join(', '):''));if(isDone(t))t.completedAt=Date.now();saveTask(clone(t));closeSheet();toast(tidOf(t)+' added');return}
   if(b.dataset.pset!==undefined){const v=+b.dataset.pset;sheet.draft.progress!==v&&(sheet.isNew?(sheet.draft.progress=v,$('#s-prog').value=v,$('#s-pct').textContent=v+'%'):applyField('progress',v));if(sheet.isNew&&v===100){const ds=cfg.statuses.find(s=>s.done);if(ds){sheet.draft.status=ds.id;$('#s-status').value=ds.id}}return}
   if(b.id==='s-post'){const ta=$('#s-cmt');const txt=ta.value.trim();const pend=sheet.pending||[];if(!txt&&!pend.length){ta.focus();return}
     const t=sheet.draft;b.disabled=true;
-    Promise.all(pend.map(p=>imgPut(p.id,p.data))).then(()=>{t.comments=t.comments||[];t.comments.push({id:uid('c'),text:txt,at:Date.now(),kind:'note',images:pend.map(p=>p.id)});
+    Promise.all(pend.map(p=>imgPut(p.id,p.data))).then(()=>{t.comments=t.comments||[];const ab=$('#s-about')?$('#s-about').value:'';const abc=ab&&contribs(t).find(x=>x.id===ab);const nc={id:uid('c'),text:txt,at:Date.now(),kind:'note',images:pend.map(p=>p.id)};if(abc){nc.about=abc.id;nc.aboutName=cName(abc)}t.comments.push(nc);sheet.about=ab;
       sheet.pending=[];sheet.shareReady=null;ta.value='';saveTask(clone(t)).then(flashSaved);drawSheet()},()=>{b.disabled=false;toast('Phone storage is full. Delete some photos or tasks and try again.')});return}
   if(b.dataset.unpend){sheet.pending=(sheet.pending||[]).filter(p=>p.id!==b.dataset.unpend);drawSheet();return}
   if(b.dataset.view){const im=b.querySelector('img');if(im&&im.src)openViewer(im.src);return}
@@ -790,13 +1223,16 @@ document.addEventListener('click',e=>{
   if(b.id==='s-delno'){sheet.confirmDel=false;drawSheet();return}
   if(b.id==='s-delyes'){const id=sheet.id;imgDel(taskImgIds(sheet.draft));closeSheet();removeTask(id);toast('Task deleted');return}
 });
-document.addEventListener('click',e=>{if(e.target.id==='sheet-wrap')closeSheet()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sheet)closeSheet()});
+document.addEventListener('click',e=>{if(e.target.id==='sheet-wrap')closeSheet();if(e.target.id==='qa-wrap')closeQA()});
+document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(QA)closeQA();else if(sheet)closeSheet()});
 document.addEventListener('input',e=>{
   const el=e.target;
   if(el.id==='q'){F.q=el.value;renderTasks();return}
+  if(el.id==='qa-txt'&&QA){QA.text=el.value;$('#qa-prev').innerHTML=qaPrevHTML();return}
+  if(el.id==='u-txt'&&sheet){sheet.uText=el.value;sheet.uOff=new Set();$('#u-prev').innerHTML=updPrevHTML(sheet.draft);return}
   if(el.id==='d-q'){D.q=el.value;doneShare=null;renderDone();return}
   if(el.id==='s-prog'){$('#s-pct').textContent=el.value+'%';if(sheet.isNew)sheet.draft.progress=+el.value}
+  if(el.dataset&&el.dataset.cprog){const p=$('#cp-'+el.dataset.cprog);if(p)p.textContent=el.value+'%'}
 });
 document.addEventListener('change',e=>{
   const el=e.target;
@@ -813,6 +1249,13 @@ document.addEventListener('change',e=>{
     if(el.id==='rm-days')cfg.remind.days=+el.value;if(el.id==='rm-time')cfg.remind.time=el.value||'09:00';if(el.id==='rm-summary')cfg.remind.summary=el.checked;saveCfg();return}
   if(el.dataset.done){const x=cfg.statuses.find(v=>v.id===el.dataset.done);x.done=el.checked;saveCfg();return}
   if(!sheet)return;
+  if(el.dataset.cprog){const c=contribs(sheet.draft).find(x=>x.id===el.dataset.cprog);if(c){const p={progress:+el.value};if(c.status==='pending'&&+el.value>0)p.status='progress';cChange(c.id,p)}return}
+  if(el.dataset.cdue){cChange(el.dataset.cdue,{due:el.value});return}
+  if(el.dataset.crem){const v=el.value.trim();const c=contribs(sheet.draft).find(x=>x.id===el.dataset.crem);if(c&&(c.remark||'')!==v)cChange(c.id,{remark:v});return}
+  if(el.dataset.cbr||el.dataset.cpe){const id=el.dataset.cbr||el.dataset.cpe;const c=contribs(sheet.draft).find(x=>x.id===id);if(!c)return;const p=el.dataset.cbr?{branch:el.value}:{person:el.value};
+    if(!(el.dataset.cbr?el.value||c.person:el.value||c.branch)){toast('An input needs a branch or a person.');redrawKeep();return}cChange(id,p);return}
+  if(el.id==='s-about'){sheet.about=el.value;return}
+  if(el.dataset.uact!==undefined){const i=+el.dataset.uact;sheet.uOff=sheet.uOff||new Set();if(el.checked)sheet.uOff.delete(i);else sheet.uOff.add(i);return}
   const sm={'s-branch':'branch','s-owner':'owner','s-status':'status','s-priority':'priority','s-due':'due'};
   if(sm[el.id]){if(sheet.isNew){sheet.draft[sm[el.id]]=el.value;if(el.id==='s-status'){const s=find('statuses',el.value);if(s&&s.done){sheet.draft.progress=100;$('#s-prog').value=100;$('#s-pct').textContent='100%'}}}else applyField(sm[el.id],el.value);return}
   if(el.id==='s-prog'){if(sheet.isNew){if(+el.value===100){const ds=cfg.statuses.find(s=>s.done);if(ds){sheet.draft.status=ds.id;$('#s-status').value=ds.id}}}else applyField('progress',+el.value);return}
