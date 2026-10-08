@@ -174,6 +174,9 @@ input[type=range]{flex:1;accent-color:var(--accent);height:28px}
 .cmt-t{white-space:pre-wrap;overflow-wrap:anywhere}
 .cmt-x{background:none;border:0;color:var(--ink-3);font-size:12px;padding:2px 4px}
 .add-cmt{display:flex;gap:8px;align-items:flex-end}
+textarea.grow{resize:none;overflow:hidden}
+textarea.in.title{min-height:0;line-height:1.38;padding:9px 12px;font-family:var(--f-body);font-stretch:100%;font-size:17px;font-weight:600}
+textarea.in.rem{min-height:0;line-height:1.35}
 .guide details{border-top:1px solid var(--line)}
 .guide details:first-of-type{border-top:0}
 .guide summary{list-style:none;cursor:pointer;padding:11px 0;font-weight:650;display:flex;justify-content:space-between;align-items:center;gap:10px}
@@ -444,7 +447,7 @@ function renderDash(){
   </div>
   ${attention.length?`<div class="panel"><div class="panel-h"><h2>Needs attention</h2><span class="label">Overdue · due soon · top priority</span></div><div class="cards">${attention.map(cardHTML).join('')}</div></div>`:''}
   ${PI.length?`<div class="panel"><div class="panel-h"><h2>Inputs awaited</h2><span class="label">${PI.length} pending${PIlate.length?` · <span style="color:var(--danger)">${PIlate.length} overdue</span>`:''}</span></div><div class="rows">
-    ${PI.slice().sort((a,b)=>(b.late-a.late)||((a.due||'9999')<(b.due||'9999')?-1:1)).slice(0,6).map(({t,c,late,due})=>{const br=find('branches',c.branch);return `<button class="row" data-open="${t.id}" type="button"><span class="row-name"><i class="dot" style="background:${br?col(br.color):'var(--line)'}"></i><em>${esc(cName(c))}</em></span><span class="row-meta">${late?`<span class="bad">${late}d overdue</span>`:due?'due '+fmtDate(due):esc(cst(c.status)[1])}</span><span class="muted" style="grid-column:1 / -1;font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${tidOf(t)} · ${esc(t.title||'Untitled task')}</span></button>`}).join('')}
+    ${PI.slice().sort((a,b)=>(b.late-a.late)||((a.due||'9999')<(b.due||'9999')?-1:1)).slice(0,6).map(({t,c,late,due})=>{const br=find('branches',c.branch);return `<button class="row" data-open="${t.id}" type="button"><span class="row-name"><i class="dot" style="background:${br?col(br.color):'var(--line)'}"></i><em>${esc(cName(c))}</em></span><span class="row-meta">${late?`<span class="bad">${late}d overdue</span>`:due?'due '+fmtDate(due):esc(cst(c.status)[1])}</span><span class="muted" style="grid-column:1 / -1;font-size:12.5px;overflow-wrap:anywhere">${tidOf(t)} · ${esc(t.title||'Untitled task')}</span></button>`}).join('')}
     ${PI.length>6?`<p class="help" style="font-size:12.5px;margin-top:8px">${PI.length-6} more. Filter Tasks by branch or person to see them all.</p>`:''}
   </div></div>`:''}
   <div class="panel"><div class="panel-h"><h2>By branch</h2><span class="label">lead or contributing</span></div><div class="rows">
@@ -536,7 +539,7 @@ function renderSettings(){
     <p class="help" style="margin-bottom:10px">Tasks are stored on this phone and work without internet. Save a backup file now and then so nothing is lost if the app or browser data is cleared. A backup also moves your tasks to another phone.</p>
     <div class="steps"><button class="btn small primary" type="button" id="bk-file">Save backup file</button><label class="btn small" for="bk-open" style="cursor:pointer">Open backup or shared task</label><input type="file" id="bk-open" accept=".json,application/json,text/plain" hidden><button class="btn small" type="button" id="bk-copy">Copy as text</button><button class="btn small" type="button" id="bk-show">Paste backup text</button></div>
     <p class="help mono" id="st-use" style="font-size:12px;margin-top:10px"></p>
-    <p class="help mono" style="font-size:12px">App version 10 · in-app guide</p>
+    <p class="help mono" style="font-size:12px">App version 11 · full task text</p>
     <div id="bk-area" hidden style="margin-top:10px" class="field"><label for="bk-text">Paste backup text</label><textarea class="in" id="bk-text"></textarea><div class="steps"><button class="btn small primary" type="button" id="bk-go">Restore (adds and replaces matching tasks)</button></div></div>
   </div>
   <div class="panel guide"><div class="panel-h"><h2>How to use</h2><span class="label">Quick guide</span></div>
@@ -573,6 +576,11 @@ function renderSettings(){
 }
 let pendingDel=null;
 
+/* ---------- auto-growing text boxes ---------- */
+function autoGrow(el){if(!el||!el.isConnected)return;el.style.height='auto';el.style.height=(el.scrollHeight+2)+'px'}
+function growAll(root){(root||document).querySelectorAll('textarea.grow').forEach(autoGrow)}
+window.addEventListener('resize',()=>growAll());
+
 /* ---------- task sheet ---------- */
 let sheet=null; // {id,isNew,draft,confirmDel}
 function openTask(id){
@@ -603,7 +611,7 @@ function inputsHTML(t){
         <div class="field"><label>Branch</label><select class="in" data-cbr="${c.id}">${sel('branches',c.branch,'— None —')}</select></div>
         <div class="field"><label>Person</label><select class="in" data-cpe="${c.id}">${sel('people',c.person,'— None —')}</select></div>
         <div class="field"><label>Own due date</label><input class="in" type="date" data-cdue="${c.id}" value="${esc(c.due||'')}"></div>
-        <div class="field"><label>Remark</label><input class="in" type="text" maxlength="120" data-crem="${c.id}" value="${esc(c.remark||'')}" placeholder="e.g. awaiting figures"></div>
+        <div class="field"><label>Remark</label><textarea class="in rem grow" rows="1" maxlength="500" data-crem="${c.id}" placeholder="e.g. awaiting figures">${esc(c.remark||'')}</textarea></div>
       </div>
       <div class="steps">${sheet.confirmC===c.id?`<span class="help" style="align-self:center">Remove this input?</span><button class="btn small danger fill" type="button" data-crmyes="${c.id}">Remove</button><button class="btn small" type="button" data-crmno>Keep</button>`:`<button class="btn small" type="button" data-cedit="${c.id}">Done</button><button class="btn small danger" type="button" data-crm="${c.id}">Remove input</button>`}</div>
     </div>`:''}</div>`};
@@ -657,7 +665,7 @@ function speakHTML(t){
   if(!sheet.uOpen)return `<div class="field"><button class="btn speak-btn" type="button" id="u-open">${MIC_SVG}Speak an update</button></div>`;
   return `<div class="speak"><div class="inp-h"><span class="label">Speak an update</span><button class="btn small" type="button" id="u-cancel">Cancel</button></div>
     <p class="hint">Tap the microphone on your keyboard and speak, for example: “Finance input received, Logistics nil return, extend due date to 20 October.” Check the changes below, then apply.</p>
-    <textarea class="in" id="u-txt" placeholder="Speak or type the update">${esc(sheet.uText||'')}</textarea>
+    <textarea class="in grow" id="u-txt" placeholder="Speak or type the update">${esc(sheet.uText||'')}</textarea>
     <div id="u-prev">${updPrevHTML(t)}</div>
     <div class="steps"><button class="btn primary" type="button" id="u-apply">Apply update</button></div></div>`}
 function updPrevHTML(t){const txt=(sheet.uText||'').trim();if(!txt)return '<p class="help" style="font-size:12.5px">The changes the app understands will be listed here for you to check.</p>';
@@ -682,11 +690,11 @@ function drawQA(){document.body.style.overflow='hidden';
     <div class="sheet-h"><button class="btn small" type="button" id="qa-close">Cancel</button><span class="tid">Speak a task</span><button class="btn small primary" type="button" id="qa-add">Add task</button></div>
     <div class="sheet-b">
       <p class="hint">Tap the microphone on your keyboard and say the whole task in one go, for example: “Compile training returns, lead Head Office, inputs from Finance and Logistics, due 15 October, urgent.”</p>
-      <textarea class="in" id="qa-txt" placeholder="Speak or type the task" style="min-height:110px">${esc(QA.text)}</textarea>
+      <textarea class="in grow" id="qa-txt" placeholder="Speak or type the task" style="min-height:110px">${esc(QA.text)}</textarea>
       <div id="qa-prev">${qaPrevHTML()}</div>
       <div class="steps"><button class="btn" type="button" id="qa-edit">Edit before adding</button></div>
       <p class="help" style="font-size:12.5px">Names are matched to the branches, people and priorities in Setup. The words are interpreted on this phone.</p>
-    </div></div></div>`}
+    </div></div></div>`;growAll($('#qa-root'))}
 function drawSheet(){
   if(sheet&&sheet.isNew&&$('#s-title')){sheet.draft.title=$('#s-title').value;sheet.draft.notes=$('#s-notes').value}
   const keepCmt=$('#s-cmt')?$('#s-cmt').value:'';
@@ -695,7 +703,7 @@ function drawSheet(){
   $('#sheet-root').innerHTML=`<div class="sheet-wrap" id="sheet-wrap"><div class="sheet" role="dialog" aria-modal="true" aria-label="Task">
     <div class="sheet-h"><button class="btn small" type="button" id="s-close">${sheet.isNew?'Cancel':'Close'}</button><span class="tid">${tidOf(t)}${sheet.isNew?' · new':''}</span><span class="saved" id="s-saved">Saved</span>${sheet.isNew?`<button class="btn small primary" type="button" id="s-create">Add task</button>`:''}</div>
     <div class="sheet-b">
-      <div class="field"><label for="s-title">Task</label><input class="in title" id="s-title" type="text" value="${esc(t.title)}" placeholder="What needs doing?" maxlength="160"></div>
+      <div class="field"><label for="s-title">Task</label><textarea class="in title grow" id="s-title" rows="1" placeholder="What needs doing?" maxlength="2000">${esc(t.title)}</textarea></div>
       <div class="grid2">
         <div class="field"><label for="s-branch">Lead branch</label><select class="in" id="s-branch">${sel('branches',t.branch,'— None —')}</select></div>
         <div class="field"><label for="s-owner">Lead (responsible)</label><select class="in" id="s-owner">${sel('people',t.owner,'— Unassigned —')}</select></div>
@@ -708,10 +716,10 @@ function drawSheet(){
       :`<div class="field"><span class="label">Progress</span>
         <div class="slider-row"><input type="range" id="s-prog" min="0" max="100" step="5" value="${+t.progress||0}" aria-label="Progress percent"><span class="pct" id="s-pct">${+t.progress||0}%</span></div>
         <div class="steps">${[0,25,50,75,100].map(v=>`<button class="btn small" type="button" data-pset="${v}">${v}%</button>`).join('')}</div></div>`}
-      <div class="field"><label for="s-notes">Details</label><textarea class="in" id="s-notes" placeholder="Context, links, next steps">${esc(t.notes)}</textarea></div>
+      <div class="field"><label for="s-notes">Details</label><textarea class="in grow" id="s-notes" placeholder="Context, links, next steps">${esc(t.notes)}</textarea></div>
       ${sheet.isNew?'':`${speakHTML(t)}<div class="field"><span class="label">Comments &amp; history</span>
         ${(sheet.pending||[]).length?`<div class="thumbs">${sheet.pending.map(p=>`<div class="pend"><img class="thumb" src="${p.data}" alt="Photo to attach"><button class="x" type="button" data-unpend="${p.id}" aria-label="Remove photo">×</button></div>`).join('')}</div>`:''}
-        <div class="add-cmt"><label class="btn photo-btn" for="s-photo" aria-label="Add photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></label><input type="file" id="s-photo" accept="image/*" multiple hidden><textarea class="in" id="s-cmt" placeholder="Add an update"></textarea><button class="btn primary" type="button" id="s-post">Post</button></div>
+        <div class="add-cmt"><label class="btn photo-btn" for="s-photo" aria-label="Add photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></label><input type="file" id="s-photo" accept="image/*" multiple hidden><textarea class="in grow" id="s-cmt" placeholder="Add an update"></textarea><button class="btn primary" type="button" id="s-post">Post</button></div>
         ${contribs(t).length?`<select class="in" id="s-about" aria-label="Update is about" style="padding:8px 10px"><option value="">About: the task in general</option>${contribs(t).map(c=>`<option value="${c.id}" ${sheet.about===c.id?'selected':''}>Input from ${esc(cName(c))}</option>`).join('')}</select>`:''}
         <div class="comments">${cm.length?cm.map(c=>`<div class="cmt ${c.kind==='log'?'log':''}"><div class="cmt-h"><span class="mono">${fmtStamp(c.at)}</span>${c.kind==='log'?'':`<button class="cmt-x" type="button" data-cdel="${c.id}">Delete</button>`}</div>${c.about?`<div class="ctag">Input from ${esc((contribs(t).find(x=>x.id===c.about)&&cName(contribs(t).find(x=>x.id===c.about)))||c.aboutName||'contributor')}</div>`:''}${c.text?`<div class="cmt-t">${esc(c.text)}</div>`:''}${(c.images||[]).length?`<div class="thumbs">${c.images.map(id=>`<button class="thumb" type="button" data-view="${id}" aria-label="View photo"><img data-img="${id}" alt="Photo" style="width:100%;height:100%;object-fit:cover;border-radius:7px;display:block"></button>`).join('')}</div>`:''}</div>`).join(''):'<p class="help">No comments yet. Updates to status, owner, progress and due date are logged here automatically.</p>'}</div></div>
         ${t.due&&!isDone(t)?`<div class="field"><button class="btn" type="button" id="cal-one">Add daily reminders to Calendar</button><p class="help" style="font-size:12.5px">Alerts every day at ${esc((cfg.remind||{}).time||'09:00')} from ${rdays()} days before ${fmtDate(t.due)}.</p></div>`:''}
@@ -724,7 +732,7 @@ function drawSheet(){
     </div>
     ${sheet.askClose?`<div class="ask"><div class="ask-box" role="alertdialog" aria-modal="true" aria-labelledby="ask-t"><h3 id="ask-t">All inputs received</h3><p>${inSum(t).got} of ${inSum(t).n} inputs are in for ${tidOf(t)}. Close the task now, or keep it open for further action?</p><div class="steps"><button class="btn primary" type="button" id="ask-close">Close task</button><button class="btn" type="button" id="ask-cont">Continue task</button></div></div></div>`:''}
     </div></div>`;
-  if(keepCmt&&$('#s-cmt'))$('#s-cmt').value=keepCmt;hydrateImgs($('#sheet-root'));
+  if(keepCmt&&$('#s-cmt'))$('#s-cmt').value=keepCmt;hydrateImgs($('#sheet-root'));growAll($('#sheet-root'));
 }
 function logEntry(t,text){t.comments=t.comments||[];t.comments.push({id:uid('c'),text,at:Date.now(),kind:'log'});if(t.comments.length>300)t.comments=t.comments.slice(-300)}
 function nameOf(list,id,none){const x=find(list,id);return x?x.name:none}
@@ -1181,7 +1189,7 @@ document.addEventListener('click',e=>{
   // sheet
   if(!sheet)return;
   if(b.id==='cal-one'){addToCalendar([sheet.draft]);return}
-  if(b.id==='u-open'){sheet.uOpen=true;sheet.uText='';sheet.uOff=new Set();redrawKeep();setTimeout(()=>{const x=$('#u-txt');if(x){x.focus();x.scrollIntoView({block:'center'})}},60);return}
+  if(b.id==='u-open'){sheet.uOpen=true;sheet.uText='';sheet.uOff=new Set();redrawKeep();growAll($('#sheet-root'));setTimeout(()=>{const x=$('#u-txt');if(x){x.focus();x.scrollIntoView({block:'center'})}},60);return}
   if(b.id==='u-cancel'){sheet.uOpen=false;sheet.uText='';redrawKeep();return}
   if(b.id==='u-apply'){const txt=(sheet.uText||'').trim();if(!txt){toast('Speak or type the update first.');$('#u-txt').focus();return}
     const off=sheet.uOff||new Set();const acts=parseUpdate(sheet.draft,txt).acts.filter((a,i)=>!off.has(i)&&a.kind!=='note');
@@ -1224,9 +1232,10 @@ document.addEventListener('click',e=>{
   if(b.id==='s-delyes'){const id=sheet.id;imgDel(taskImgIds(sheet.draft));closeSheet();removeTask(id);toast('Task deleted');return}
 });
 document.addEventListener('click',e=>{if(e.target.id==='sheet-wrap')closeSheet();if(e.target.id==='qa-wrap')closeQA()});
-document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(QA)closeQA();else if(sheet)closeSheet()});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target&&e.target.id==='s-title'){e.preventDefault();e.target.blur();return}if(e.key!=='Escape')return;if(QA)closeQA();else if(sheet)closeSheet()});
 document.addEventListener('input',e=>{
   const el=e.target;
+  if(el.matches&&el.matches('textarea.grow'))autoGrow(el);
   if(el.id==='q'){F.q=el.value;renderTasks();return}
   if(el.id==='qa-txt'&&QA){QA.text=el.value;$('#qa-prev').innerHTML=qaPrevHTML();return}
   if(el.id==='u-txt'&&sheet){sheet.uText=el.value;sheet.uOff=new Set();$('#u-prev').innerHTML=updPrevHTML(sheet.draft);return}
